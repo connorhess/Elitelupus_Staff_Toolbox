@@ -1,2 +1,5 @@
 pyperclip
 steam
+cefpython3
+tkcalendar
+timeago
