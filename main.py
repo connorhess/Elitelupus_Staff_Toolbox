@@ -23,7 +23,7 @@ for (dirpath, dirnames, filenames) in walk(op.dirname(__file__)):
 for lib in blueprint_dirnames:
     lib_mod = f'{lib}.main'
     # cls = getattr(importlib.import_module(lib_mod), "main_app")
-    cls = (importlib.import_module(lib_mod))
+    cls = (importlib.import_module(lib_mod, package=None))
     apps.append((cls, str(lib)))
     print(f"Successfully imported blueprint: {lib}")
 
