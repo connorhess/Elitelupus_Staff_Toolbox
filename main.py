@@ -21,11 +21,16 @@ for (dirpath, dirnames, filenames) in walk(op.dirname(__file__)):
     break
 
 for lib in blueprint_dirnames:
-    lib_mod = f'{lib}.main'
-    # cls = getattr(importlib.import_module(lib_mod), "main_app")
-    cls = (importlib.import_module(lib_mod, package=None))
-    apps.append((cls, str(lib)))
-    print(f"Successfully imported blueprint: {lib}")
+    try:
+        if str(lib) != ".git":
+            print(lib)
+            lib_mod = f'{lib}.main'
+            # cls = getattr(importlib.import_module(lib_mod), "main_app")
+            cls = (importlib.import_module(lib_mod))
+            apps.append((cls, str(lib)))
+            print(f"Successfully imported blueprint: {lib}")
+    except Exception as e:
+        print("error", e)
 
 
 def main_app():
