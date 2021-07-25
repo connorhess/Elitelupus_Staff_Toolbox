@@ -78,35 +78,34 @@ def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
     data = get_profile(SteamID_entry=steam_id)
     formatted_data = {}
 
-    formatted_data.update({"steamID": data[0].replace("steamID: ", "")})
-    formatted_data.update({"steamID3": data[1].replace("steamID3: ", "")})
-    formatted_data.update({"steamID64 (Dec)": data[2].replace("steamID64 (Dec): ", "")})
-    formatted_data.update({"steamID64 (Hex)": data[3].replace("steamID64 (Hex): ", "")})
-    formatted_data.update({"profile state": data[6].replace("profile state ", "")})
-    formatted_data.update({"profile created": data[7].replace("profile created ", "")})
-    formatted_data.update({"name": data[8].replace("name ", "")})
-    formatted_data.update({"real name": data[9].replace("real name ", "")})
-    formatted_data.update({"location": data[10].replace("location ", "")})
+    try:
+        formatted_data.update({"steamID": data[0].replace("steamID: ", "")})
+        formatted_data.update({"steamID3": data[1].replace("steamID3: ", "")})
+        formatted_data.update({"steamID64 (Dec)": data[2].replace("steamID64 (Dec): ", "")})
+        formatted_data.update({"steamID64 (Hex)": data[3].replace("steamID64 (Hex): ", "")})
+        formatted_data.update({"profile state": data[6].replace("profile state ", "")})
+        formatted_data.update({"profile created": data[7].replace("profile created ", "")})
+        formatted_data.update({"name": data[8].replace("name ", "")})
+        formatted_data.update({"real name": data[9].replace("real name ", "")})
+        formatted_data.update({"location": data[10].replace("location ", "")})
 
-    customURL = data[4].replace("customURL ", "")
-    customURL = customURL.replace("<a href=\"", "")
-    customURL = customURL.replace("</a>", "")
-    customURL = customURL.replace("\" target=\"_blank\">", ";=")
-    customURL = customURL.split(";=")
-    formatted_data.update({"customURL": customURL[0]})
+        customURL = data[4].replace("customURL ", "")
+        customURL = customURL.replace("<a href=\"", "")
+        customURL = customURL.replace("</a>", "")
+        customURL = customURL.replace("\" target=\"_blank\">", ";=")
+        customURL = customURL.split(";=")
+        formatted_data.update({"customURL": customURL[0]})
 
-    profile = data[5].replace("profile ", "")
-    profile = profile.replace("<a href=\"", "")
-    profile = profile.replace("</a>", "")
-    profile = profile.replace("\" target=\"_blanl\">", ";=")
-    profile = profile.split(";=")
-    formatted_data.update({"profile": profile[0]})
+        profile = data[5].replace("profile ", "")
+        profile = profile.replace("<a href=\"", "")
+        profile = profile.replace("</a>", "")
+        profile = profile.replace("\" target=\"_blanl\">", ";=")
+        profile = profile.split(";=")
+        formatted_data.update({"profile": profile[0]})
+    except:
+        messagebox.showerror("Error", "User Profile does not exist anymore or never existed")
 
     return formatted_data
-
-
-print(get_steam_profile_data())
-
 
 
 def get_bans(SteamID_entry="STEAM_0:1:526199909"):
@@ -255,27 +254,29 @@ def main_app(frame=None):
         links_list = ['customURL', 'profile']
 
         old_end = 0
+        try:
 
-        for i, item in enumerate(profile_data.keys()):
-            if item not in links_list:
+            for i, item in enumerate(profile_data.keys()):
+                if item not in links_list:
+                    label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
+                    label_list2[item].grid(row=i, column=0, sticky="e")
+
+                    label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}")})
+                    label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
+                    old_end = i
+
+
+            for i, item in enumerate(links_list, start=old_end+1):
                 label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
                 label_list2[item].grid(row=i, column=0, sticky="e")
 
-                label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}")})
+                label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
                 label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
-                old_end = i
+                # label_list2[item].bind("<Button-1>", lambda e: callback(profile_data[item]))
+                label_list2[(item + "_res")].bind("<Button-1>", callback)
 
-
-        for i, item in enumerate(links_list, start=old_end+1):
-            label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
-            label_list2[item].grid(row=i, column=0, sticky="e")
-
-            label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
-            label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
-            # label_list2[item].bind("<Button-1>", lambda e: callback(profile_data[item]))
-            label_list2[(item + "_res")].bind("<Button-1>", callback)
-
-
+        except Exception as e:
+            print(e)
 
 
         #=============================================
