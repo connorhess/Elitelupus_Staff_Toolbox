@@ -12,6 +12,12 @@ from datetime import datetime, timedelta
 import threading
 import timeago
 
+import webbrowser
+
+def callback(event):
+    print(event.widget.cget("text"))
+    webbrowser.open_new(event.widget.cget("text"))
+
 def format_elapsed_datetime(time):
     time_now = datetime.utcnow()
     # seconds = (datetime.timestamp(time_now) - datetime.timestamp(time))
@@ -26,8 +32,81 @@ def format_elapsed_datetime(time):
 
 
 Elite_search_URL = "https://elitelupus.com/bans/search/"
-
+Profile_search_URL = "https://www.steamidfinder.com"
 session = requests.Session()
+
+
+def get_profile(SteamID_entry="STEAM_0:1:526199909"):
+    SteamID_Data = SteamID(SteamID_entry)
+
+    SteamID_64 = SteamID_Data.as_64
+
+
+    payload = {'userSteamId': str(SteamID_64), 'submit': 'Search'}
+
+
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    response = session.post(f"{Profile_search_URL}/lookup/{SteamID_64}/", headers=headers, data=payload)
+
+
+    # response = requests.post(Elite_search_URL, json=data)
+
+    myhtml = (response.text)
+    # print(myhtml)
+
+    text = ''
+
+    for item in myhtml.split("</div>"):
+        if "<div class=\"panel-body\">" in item:
+            text += (item [ item.find("<div class=\"panel-body\">")+len("</div>") : ])
+            break
+
+    data_of_steam_profile = []
+
+    text2 = (text.replace('\n', '').replace('lass=\"panel-body\">', '').replace('<code>', '').replace('<br>', '')).split("</code>")
+    for row in text2:
+        if "<a target=\"_blank\" href=\"steam:" not in row.strip():
+            data_of_steam_profile.append(row.strip())
+            # print("=======")
+            # print(row.strip())
+
+    return (data_of_steam_profile)
+
+
+def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
+    data = get_profile(SteamID_entry=steam_id)
+    formatted_data = {}
+
+    formatted_data.update({"steamID": data[0].replace("steamID: ", "")})
+    formatted_data.update({"steamID3": data[1].replace("steamID3: ", "")})
+    formatted_data.update({"steamID64 (Dec)": data[2].replace("steamID64 (Dec): ", "")})
+    formatted_data.update({"steamID64 (Hex)": data[3].replace("steamID64 (Hex): ", "")})
+    formatted_data.update({"profile state": data[6].replace("profile state ", "")})
+    formatted_data.update({"profile created": data[7].replace("profile created ", "")})
+    formatted_data.update({"name": data[8].replace("name ", "")})
+    formatted_data.update({"real name": data[9].replace("real name ", "")})
+    formatted_data.update({"location": data[10].replace("location ", "")})
+
+    customURL = data[4].replace("customURL ", "")
+    customURL = customURL.replace("<a href=\"", "")
+    customURL = customURL.replace("</a>", "")
+    customURL = customURL.replace("\" target=\"_blank\">", ";=")
+    customURL = customURL.split(";=")
+    formatted_data.update({"customURL": customURL[0]})
+
+    profile = data[5].replace("profile ", "")
+    profile = profile.replace("<a href=\"", "")
+    profile = profile.replace("</a>", "")
+    profile = profile.replace("\" target=\"_blanl\">", ";=")
+    profile = profile.split(";=")
+    formatted_data.update({"profile": profile[0]})
+
+    return formatted_data
+
+
+print(get_steam_profile_data())
+
 
 
 def get_bans(SteamID_entry="STEAM_0:1:526199909"):
@@ -129,9 +208,10 @@ def main_app(frame=None):
     ME1 = Entry(question_frame, bd=3)
     ME1.grid(row=0, column=1, sticky="e")
 
+
     result_frame = Frame(Main)
-    # result_frame.grid(row=1, column=0)
     result_frame.pack(fill="both", side="bottom")
+
 
     def search_bans():
         global result_frame
@@ -157,10 +237,50 @@ def main_app(frame=None):
         Searching_Label.grid_forget()
         Searching_Label.destroy()
 
-        label_list = {}
+        tabControl2 = ttk.Notebook(resultPage)
 
+        result_frame2 = ttk.Frame(tabControl2)
+        tabControl2.add(result_frame2, text="Bans")
+
+        profile_frame = ttk.Frame(tabControl2)
+        tabControl2.add(profile_frame, text="Profile")
+
+        label_list = {}
+        label_list2 = {}
         tab = {}
-        tabControl = ttk.Notebook(resultPage)
+
+        #=============================================
+
+        profile_data = get_steam_profile_data(steam_id=steam_id)
+        links_list = ['customURL', 'profile']
+
+        old_end = 0
+
+        for i, item in enumerate(profile_data.keys()):
+            if item not in links_list:
+                label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
+                label_list2[item].grid(row=i, column=0, sticky="e")
+
+                label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}")})
+                label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
+                old_end = i
+
+
+        for i, item in enumerate(links_list, start=old_end+1):
+            label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
+            label_list2[item].grid(row=i, column=0, sticky="e")
+
+            label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
+            label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
+            # label_list2[item].bind("<Button-1>", lambda e: callback(profile_data[item]))
+            label_list2[(item + "_res")].bind("<Button-1>", callback)
+
+
+
+
+        #=============================================
+
+        tabControl = ttk.Notebook(result_frame2)
         exclude_list = ["Location", "Profile"]
 
         for ban in result:
@@ -191,6 +311,7 @@ def main_app(frame=None):
 
 
         tabControl.grid(row=0, column=0)
+        tabControl2.grid(row=0, column=0)
 
     def start_search():
         thread = threading.Thread(target=search_bans)
