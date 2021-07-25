@@ -22,7 +22,7 @@ refund_counter = 0
 refund_data = {}
 
 
-def refund_app(frame=None):
+def refund_app(frame=None, theme="DarkTheme"):
     global refund_data, refunds, refund_counter
     if frame == None:
         Main = Tk()
@@ -284,7 +284,7 @@ Proof: {E5.get()}
         Main.mainloop()
 
 
-def Staff_apps_app(frame=None):
+def Staff_apps_app(frame=None, theme="DarkTheme"):
     if frame == None:
         Main = Tk()
         Main.title("Staff Application Response Maker")
@@ -354,7 +354,7 @@ def main_app(frame=None, theme="DarkTheme"):
 
     refund_tab = ttk.Frame(tabControl)
     tabControl.add(refund_tab, text="Refunds")
-    refund_page_tab = refund_app(refund_tab)
+    refund_page_tab = refund_app(refund_tab, theme="DarkTheme")
 
 
     refund_tab = ttk.Frame(tabControl)
@@ -363,7 +363,7 @@ def main_app(frame=None, theme="DarkTheme"):
 
     staff_apps_tab = ttk.Frame(tabControl)
     tabControl.add(staff_apps_tab, text="Staff Applications")
-    staff_apps_page_tab = Staff_apps_app(staff_apps_tab)
+    staff_apps_page_tab = Staff_apps_app(staff_apps_tab, theme="DarkTheme")
 
 
     refund_tab = ttk.Frame(tabControl)
