@@ -88,11 +88,12 @@ def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
         formatted_data.update({"steamID3": data[1].replace("steamID3: ", "")})
         formatted_data.update({"steamID64 (Dec)": data[2].replace("steamID64 (Dec): ", "")})
         formatted_data.update({"steamID64 (Hex)": data[3].replace("steamID64 (Hex): ", "")})
-        formatted_data.update({"profile state": data[6].replace("profile state ", "")})
-        formatted_data.update({"profile created": data[7].replace("profile created ", "")})
-        formatted_data.update({"name": data[8].replace("name ", "")})
-        formatted_data.update({"real name": data[9].replace("real name ", "")})
-        formatted_data.update({"location": data[10].replace("location ", "")})
+        formatted_data.update({"profile state": "Private"})
+        # formatted_data.update({"profile state": data[6].replace("profile state ", "")})
+        formatted_data.update({"profile created": data[6].replace("profile created ", "")})
+        formatted_data.update({"name": data[7].replace("name ", "")})
+        formatted_data.update({"real name": data[8].replace("real name ", "")})
+        formatted_data.update({"location": data[9].replace("location ", "")})
 
         customURL = data[4].replace("customURL ", "")
         customURL = customURL.replace("<a href=\"", "")
@@ -318,7 +319,7 @@ def main_app(frame=None, theme="DarkTheme"):
                 label_list2.update({item: ttk.Label(profile_frame, text=f"{item}: ")})
                 label_list2[item].grid(row=i, column=0, sticky="e")
 
-                label_list2.update({(item + "_res"): ttk.Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
+                label_list2.update({(item + "_res"): ttk.Label(profile_frame, text=f"{profile_data[item]}", cursor="hand2")})
                 label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
                 label_list2[(item + "_res")].bind("<Button-1>", callback)
 
