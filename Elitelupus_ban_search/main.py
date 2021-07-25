@@ -18,6 +18,10 @@ def callback(event):
     print(event.widget.cget("text"))
     webbrowser.open_new(event.widget.cget("text"))
 
+def callback_copy(event):
+    print(event.widget.cget("text"))
+    pyperclip.copy(event.widget.cget("text"))
+
 def format_elapsed_datetime(time):
     time_now = datetime.utcnow()
     # seconds = (datetime.timestamp(time_now) - datetime.timestamp(time))
@@ -34,6 +38,7 @@ def format_elapsed_datetime(time):
 Elite_search_URL = "https://elitelupus.com/bans/search/"
 Profile_search_URL = "https://www.steamidfinder.com"
 session = requests.Session()
+
 
 
 def get_profile(SteamID_entry="STEAM_0:1:526199909"):
@@ -106,6 +111,48 @@ def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
         messagebox.showerror("Error", "User Profile does not exist anymore or never existed")
 
     return formatted_data
+
+# # <!-- start: memberlist_user -->
+# def get_elite_profile(username="Connor2"):
+#     headers = {'User-Agent': 'Mozilla/5.0'}
+
+#     response = session.post(f"https://elitelupus.com/forums/memberlist.php?username={username}", headers=headers)
+#     myhtml = (response.text)
+
+#     text = ''
+#     for item in myhtml.split("<!-- end: memberlist_user -->"):
+#         if "<!-- start: memberlist_user -->" in item:
+#             text += (item [ item.find("<!-- start: memberlist_user -->")+len("<!-- end: memberlist_user -->") : ])
+#             break
+
+#     text2 = (text.replace("""<td class="trow1" align="center"><!-- start: memberlist_user_avatar -->""", "").replace("<tr>", "").replace("->", "")).split("\n")
+#     # print(text2)
+
+#     # data_of_steam_profile = []
+#     url = "https://elitelupus.com/forums/member.php?action=profile&uid=11697"
+
+#     for row in text2:
+#         if "<td class=\"trow1\"><a href=\"" in row:
+#             url = (((row.strip()).replace("<td class=\"trow1\"><a href=\"", "").replace("\"", "").split('>'))[0]).replace("amp;", "")
+#             print(url)
+#             break
+
+
+
+
+#     response = session.get(url, headers=headers)
+#     myhtml2 = (response.text)
+#     # print(myhtml2)
+
+#     text = ''
+#     for item in myhtml2.split("</tbody>"):
+#         if "<tbody>" in item:
+#             text += (item [ item.find("<tbody>")+len("</tbody>") : ])
+#             break
+
+#     print(text)
+
+# print(get_elite_profile())
 
 
 def get_bans(SteamID_entry="STEAM_0:1:526199909"):
@@ -189,7 +236,7 @@ def get_all_bans(SteamID_entry="STEAM_0:1:526199909"):
 
     return ban_data
 
-def main_app(frame=None):
+def main_app(frame=None, theme="DarkTheme"):
     global result_frame
     if frame == None:
         Main = Tk()
@@ -197,18 +244,18 @@ def main_app(frame=None):
     else:
         Main = frame
 
-    question_frame = Frame(Main)
+    question_frame = ttk.Frame(Main)
     # question_frame.grid(row=0, column=0)
     question_frame.pack(fill="x", side="top")
 
-    ML1 = Label(question_frame, text="SteamID (any)")
+    ML1 = ttk.Label(question_frame, text="SteamID (any)")
     ML1.grid(row=0, column=0, sticky="e")
 
-    ME1 = Entry(question_frame, bd=3)
+    ME1 = ttk.Entry(question_frame)
     ME1.grid(row=0, column=1, sticky="e")
 
 
-    result_frame = Frame(Main)
+    result_frame = ttk.Frame(Main)
     result_frame.pack(fill="both", side="bottom")
 
 
@@ -223,12 +270,12 @@ def main_app(frame=None):
         result_frame.grid_forget()
         result_frame.destroy()
 
-        result_frame = Frame(Main)
+        result_frame = ttk.Frame(Main)
         # result_frame.grid(row=1, column=0)
         result_frame.pack(fill="both", side="bottom")
         resultPage = result_frame
 
-        Searching_Label = Label(resultPage, text="Searching...")
+        Searching_Label = ttk.Label(resultPage, text="Searching...")
         Searching_Label.grid(row=0, column=0)
 
         result = (get_all_bans(SteamID_entry=steam_id))
@@ -258,21 +305,21 @@ def main_app(frame=None):
 
             for i, item in enumerate(profile_data.keys()):
                 if item not in links_list:
-                    label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
+                    label_list2.update({item: ttk.Label(profile_frame, text=f"{item}: ")})
                     label_list2[item].grid(row=i, column=0, sticky="e")
 
-                    label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}")})
+                    label_list2.update({(item + "_res"): ttk.Label(profile_frame, text=f"{profile_data[item]}", cursor="hand2")})
                     label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
+                    label_list2[(item + "_res")].bind("<Button-1>", callback_copy)
                     old_end = i
 
 
             for i, item in enumerate(links_list, start=old_end+1):
-                label_list2.update({item: Label(profile_frame, text=f"{item}: ")})
+                label_list2.update({item: ttk.Label(profile_frame, text=f"{item}: ")})
                 label_list2[item].grid(row=i, column=0, sticky="e")
 
-                label_list2.update({(item + "_res"): Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
+                label_list2.update({(item + "_res"): ttk.Label(profile_frame, text=f"{profile_data[item]}", fg="blue", cursor="hand2")})
                 label_list2[(item + "_res")].grid(row=i, column=1, sticky="w")
-                # label_list2[item].bind("<Button-1>", lambda e: callback(profile_data[item]))
                 label_list2[(item + "_res")].bind("<Button-1>", callback)
 
         except Exception as e:
@@ -296,30 +343,33 @@ def main_app(frame=None):
                 name = item
                 data = ban[item]
                 if name not in exclude_list:
-                    label_list.update({name: Label(tab[result_name], text=f"{name}: ")})
+                    label_list.update({name: ttk.Label(tab[result_name], text=f"{name}: ")})
                     label_list[name].grid(row=i, column=0, sticky="e")
 
-                    label_list.update({(name + "_res"): Label(tab[result_name], text=f"{data}")})
+                    label_list.update({(name + "_res"): ttk.Label(tab[result_name], text=f"{data}", cursor="hand2")})
                     label_list[(name + "_res")].grid(row=i, column=1, sticky="w")
+                    label_list[(name + "_res")].bind("<Button-1>", callback_copy)
 
-            label_list.update({"Time Since": Label(tab[result_name], text="Time Since: ")})
+            label_list.update({"Time Since": ttk.Label(tab[result_name], text="Time Since: ")})
             label_list["Time Since"].grid(row=20, column=0, sticky="e")
 
 
-            label_list.update({("Time Since" + "_res"): Label(tab[result_name], text=f"{result_name}")})
+            label_list.update({("Time Since" + "_res"): ttk.Label(tab[result_name], text=f"{result_name}")})
             label_list[("Time Since" + "_res")].grid(row=20, column=1, sticky="w")
             # app.main_app(frame=tab[name])
 
 
-        tabControl.grid(row=0, column=0)
-        tabControl2.grid(row=0, column=0)
+        # tabControl.grid(row=0, column=0)
+        tabControl.pack(fill=BOTH, side="top")
+        # tabControl2.grid(row=0, column=0)
+        tabControl2.pack(fill=BOTH, side="top")
 
     def start_search():
         thread = threading.Thread(target=search_bans)
         thread.setDaemon(True)
         thread.start()
 
-    B5 = Button(question_frame, text="Search", command=start_search)
+    B5 = ttk.Button(question_frame, text="Search", command=start_search)
     B5.grid(row=0, column=2, sticky="e")
 
 

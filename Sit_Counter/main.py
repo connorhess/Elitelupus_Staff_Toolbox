@@ -22,7 +22,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS Stats(ID INT, Name TEXT, Detail RAEL)'''
 c.execute('''CREATE TABLE IF NOT EXISTS Commands(ID INT, Name TEXT, Detail RAEL)''')
 
 
-def main_app(frame=None):
+def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
         Page1 = Tk()
         Page1.title("Elitelupus Refund Template Maker")
@@ -94,12 +94,12 @@ def main_app(frame=None):
 
     myFont = Font(family="Times New Roman", size=20)
 
-    label1 = Label(F1, text='Total Sits: ', anchor='e', pady=4)
+    label1 = ttk.Label(F1, text='Total Sits: ')
     label1.grid(row=0,column=0,sticky='e', pady=(0, 5))
     label1.configure(font=myFont)
 
     Stats = StringVar()
-    label2 = Label(F1, textvariable=Stats, anchor='w', pady=4)
+    label2 = ttk.Label(F1, textvariable=Stats)
     label2.grid(row=0,column=1,sticky='w', pady=(0, 5))
     label2.configure(font=myFont)
 
@@ -113,19 +113,19 @@ def main_app(frame=None):
         count = 0
         Stats.set(count)
 
-    B1 = Button(F1, text="Add Sit", font=myFont, width=12, height=1, fg="white", bg="green", command=Add_count, bd=2)
+    B1 = ttk.Button(F1, text="Add Sit", width=12, command=Add_count)
     B1.grid(row=1,column=0)
 
-    B2 = Button(F1, text="Remove Sit", font=myFont, width=12, height=1, fg="white", bg="red", command=Remove_count, bd=2)
+    B2 = ttk.Button(F1, text="Remove Sit", width=12, command=Remove_count)
     B2.grid(row=1,column=1)
 
 
-    label3 = Label(F1, text='Total Tickets: ', anchor='e', pady=4)
+    label3 = ttk.Label(F1, text='Total Tickets: ')
     label3.grid(row=2,column=0,sticky='e', pady=(0, 5))
     label3.configure(font=myFont)
 
     Stats2 = StringVar()
-    label4 = Label(F1, textvariable=Stats2, anchor='w', pady=4)
+    label4 = ttk.Label(F1, textvariable=Stats2)
     label4.grid(row=2,column=1,sticky='w', pady=(0, 5))
     label4.configure(font=myFont)
 
@@ -139,10 +139,10 @@ def main_app(frame=None):
         count = 0
         Stats2.set(count)
 
-    B3 = Button(F1, text="Add Ticket", font=myFont, width=12, height=1, fg="white", bg="green", command=Add_ticket_count, bd=2)
+    B3 = ttk.Button(F1, text="Add Ticket", width=12, command=Add_ticket_count)
     B3.grid(row=3,column=0)
 
-    B4 = Button(F1, text="Remove Ticket", font=myFont, width=12, height=1, fg="white", bg="red", command=Remove_ticket_count, bd=2)
+    B4 = ttk.Button(F1, text="Remove Ticket", width=12, command=Remove_ticket_count)
     B4.grid(row=3,column=1)
 
 

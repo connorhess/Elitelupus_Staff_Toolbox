@@ -25,7 +25,7 @@ class ScrollableFrame(ttk.Frame):
         container.update()
         canvas = tk.Canvas(self, height=container.winfo_height())
         scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
-        self.scrollable_frame = Frame(canvas, background="black", height=container.winfo_height())
+        self.scrollable_frame = ttk.Frame(canvas, background="black", height=container.winfo_height())
 
         self.scrollable_frame.bind(
             "<Configure>",
@@ -42,7 +42,7 @@ class ScrollableFrame(ttk.Frame):
         scrollbar.pack(side="right", fill="y")
 
 
-def main_app(frame=None):
+def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
         Page1 = Tk()
         Page1.title("Elitelupus Refund Template Maker")
@@ -76,31 +76,31 @@ def main_app(frame=None):
     F2.grid_propagate(0)
 
     myFont2 = Font(family="Times New Roman", size=14)
-    width2 = 14
+    width2 = 24
     BG = "light green"
     FG = "black"
 
-    B3 = Button(F2, text="Ban Appeal", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=15"), bd=2)
+    B3 = ttk.Button(F2, text="Ban Appeal", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=15"))
     B3.grid(row=0,column=0)
 
-    B4 = Button(F2, text="Warn Appeal", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=25"), bd=2)
+    B4 = ttk.Button(F2, text="Warn Appeal", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=25"))
     B4.grid(row=0,column=1)
 
-    B5 = Button(F2, text="Staff Applications", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=14"), bd=2)
+    B5 = ttk.Button(F2, text="Staff Applications", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=14"))
     B5.grid(row=0,column=2)
 
 
-    B6 = Button(F2, text="Player Reports", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=16"), bd=2)
+    B6 = ttk.Button(F2, text="Player Reports", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=16"))
     B6.grid(row=1,column=0)
 
-    B7 = Button(F2, text="Rules", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/showthread.php?tid=6355"), bd=2)
+    B7 = ttk.Button(F2, text="Rules", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/showthread.php?tid=6355"))
     B7.grid(row=1,column=1)
 
-    B8 = Button(F2, text="Job Rules", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/showthread.php?tid=8627"), bd=2)
+    B8 = ttk.Button(F2, text="Job Rules", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/showthread.php?tid=8627"))
     B8.grid(row=1,column=2)
 
 
-    B9 = Button(F2, text="Staff Reports", font=myFont2, width=width2, height=1, fg=FG, bg=BG, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=17"), bd=2)
+    B9 = ttk.Button(F2, text="Staff Reports", width=width2, command=partial(WB_open,"https://elitelupus.com/forums/forumdisplay.php?fid=17"))
     B9.grid(row=2,column=0)
 
 

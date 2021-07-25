@@ -39,10 +39,10 @@ def refund_app(frame=None):
     topFrame.grid(row=0, column=0, sticky="w")
 
 
-    ML1 = Label(topFrame, text="Ticket Number")
+    ML1 = ttk.Label(topFrame, text="Ticket Number")
     ML1.grid(row=0, column=0, sticky="e")
 
-    ME1 = Entry(topFrame, bd=3)
+    ME1 = ttk.Entry(topFrame)
     ME1.grid(row=0, column=1, sticky="e")
 
     ME1.delete(0,END)
@@ -57,11 +57,11 @@ def refund_app(frame=None):
 
     middleLeftFrame = ttk.Frame(middleFrame)
     middleLeftFrame.grid(row=0, column=1, sticky="nw")
-    ML2 = Label(middleLeftFrame, text="Actions:")
+    ML2 = ttk.Label(middleLeftFrame, text="Actions:")
     ML2.grid(row=0, column=0, sticky="w")
 
 
-    ML1 = Label(middleRightFrame, text="Tickets:")
+    ML1 = ttk.Label(middleRightFrame, text="Tickets:")
     ML1.grid(row=0, column=0, sticky="w")
 
     Lb1 = Listbox(middleRightFrame, width=20, height=10)
@@ -123,43 +123,44 @@ Evidence:
         refunds[refund_id].title(f"{refund_id}")
         refunds[refund_id].geometry("280x210")
         refunds[refund_id].wm_attributes("-topmost", 1)
+        refunds[refund_id].configure(bg="#444444" if theme == "DarkTheme" else "white")
         # refunds[refund_id].configure(background="#BEBEBE")
 
 
-        L1 = Label(refunds[refund_id], text="IGN")
+        L1 = ttk.Label(refunds[refund_id], text="IGN")
         L1.grid(row=0, column=0, sticky="e")
 
-        E1 = Entry(refunds[refund_id], bd=3, width=27)
+        E1 = ttk.Entry(refunds[refund_id], width=27)
         E1.grid(row=0, column=1, sticky="e")
 
 
-        L2 = Label(refunds[refund_id], text="SteamID (any)")
+        L2 = ttk.Label(refunds[refund_id], text="SteamID (any)")
         L2.grid(row=1, column=0, sticky="e")
 
-        E2 = Entry(refunds[refund_id], bd=3, width=27)
+        E2 = ttk.Entry(refunds[refund_id], width=27)
         E2.grid(row=1, column=1, sticky="e")
 
 
-        L3 = Label(refunds[refund_id], text="Reason")
+        L3 = ttk.Label(refunds[refund_id], text="Reason")
         L3.grid(row=2, column=0, sticky="e")
 
-        # E3 = Entry(refunds[refund_id], bd=3)
-        E3 = Text(refunds[refund_id], height=3, width=20, bd=3)
+        # E3 = ttk.Entry(refunds[refund_id])
+        E3 = Text(refunds[refund_id], height=3, width=20)
         E3.grid(row=2, column=1, sticky="e")
 
 
-        L4 = Label(refunds[refund_id], text="Items Lost")
+        L4 = ttk.Label(refunds[refund_id], text="Items Lost")
         L4.grid(row=3, column=0, sticky="e")
 
-        # E4 = Entry(refunds[refund_id], bd=3)
-        E4 = Text(refunds[refund_id], height=3, width=20, bd=3)
+        # E4 = ttk.Entry(refunds[refund_id])
+        E4 = Text(refunds[refund_id], height=3, width=20)
         E4.grid(row=3, column=1, sticky="e")
 
 
-        L5 = Label(refunds[refund_id], text="Proof")
+        L5 = ttk.Label(refunds[refund_id], text="Proof")
         L5.grid(row=4, column=0, sticky="e")
 
-        E5 = Entry(refunds[refund_id], bd=3, width=27)
+        E5 = ttk.Entry(refunds[refund_id], width=27)
         E5.grid(row=4, column=1, sticky="e")
 
         if open_data != None:
@@ -171,7 +172,7 @@ Evidence:
             E5.insert(0, refund_data[refund_id].get("Proof"))
 
 
-        # L6 = Label(refunds[refund_id], text="Extra")
+        # L6 = ttk.Label(refunds[refund_id], text="Extra")
         # L6.grid(row=5, column=0, sticky="e")
 
         refund_data[refund_id] = {"IGN": E1.get(),
@@ -210,10 +211,10 @@ Proof: {E5.get()}
         save_data(refund_id=refund_id)
 
 
-        B1 = Button(refunds[refund_id], text="Copy to clipboard", command=copy_to_cb)
+        B1 = ttk.Button(refunds[refund_id], text="Copy to clipboard", command=copy_to_cb)
         B1.grid(row=7, column=0, sticky="e")
 
-        B1 = Button(refunds[refund_id], text="Copy Question", command=copy_question_to_cb)
+        B1 = ttk.Button(refunds[refund_id], text="Copy Question", command=copy_question_to_cb)
         B1.grid(row=7, column=1, sticky="e")
 
         # refunds.update({refund_id: refunds[refund_id]})
@@ -223,7 +224,7 @@ Proof: {E5.get()}
     Lb1.grid(row=1, column=0, sticky="w")
 
 
-    B2 = Button(topFrame, text="New Template", command=new_refund)
+    B2 = ttk.Button(topFrame, text="New Template", command=new_refund)
     B2.grid(row=0, column=2, sticky="w")
 
     def open_existing():
@@ -246,8 +247,9 @@ Proof: {E5.get()}
         refund_id = Lb1.get(index)
 
         Entry_id = Toplevel()
-        EIDL1 = Label(Entry_id, text="New Name").grid(row=0, column=0, sticky="e")
-        EID1 = Entry(Entry_id)
+        Entry_id.configure(bg="#444444" if theme == "DarkTheme" else "white")
+        EIDL1 = ttk.Label(Entry_id, text="New Name").grid(row=0, column=0, sticky="e")
+        EID1 = ttk.Entry(Entry_id)
         EID1.grid(row=0, column=1, sticky="w")
         EID1.insert(0, "refund-")
 
@@ -262,20 +264,20 @@ Proof: {E5.get()}
             else:
                 Entry_id.destroy()
 
-        EIDB = Button(Entry_id, text="Rename", command=commit_change)
+        EIDB = ttk.Button(Entry_id, text="Rename", command=commit_change)
         EIDB.grid(row=1, column=1, sticky="w")
         Entry_id.mainloop()
 
-    B3 = Button(middleLeftFrame, text="Open Template", command=open_existing)
+    B3 = ttk.Button(middleLeftFrame, text="Open Template", command=open_existing)
     B3.grid(row=1, column=0, sticky="nw")
 
-    B4 = Button(middleLeftFrame, text="Rename Template", command=rename_existing)
+    B4 = ttk.Button(middleLeftFrame, text="Rename Template", command=rename_existing)
     B4.grid(row=2, column=0, sticky="nw")
 
-    B5 = Button(middleLeftFrame, text="Close Template", command=delete_existing)
+    B5 = ttk.Button(middleLeftFrame, text="Close Template", command=delete_existing)
     B5.grid(row=3, column=0, sticky="nw")
 
-    B6 = Button(middleLeftFrame, text="Copy Question", command=copy_question_to_cb, bg="yellow")
+    B6 = ttk.Button(middleLeftFrame, text="Copy Question", command=copy_question_to_cb)
     B6.grid(row=4, column=0, sticky="nw")
 
     if frame == None:
@@ -297,37 +299,37 @@ def Staff_apps_app(frame=None):
     FrameRight = ttk.Frame(Main)
     FrameRight.grid(row=0, column=1)
 
-    L1 = Label(FrameLeft, text="+ Rep")
+    L1 = ttk.Label(FrameLeft, text="+ Rep")
     L1.grid(row=0, column=0, sticky="e")
 
-    E1 = Entry(FrameLeft, bd=3, width=EntryLength)
+    E1 = ttk.Entry(FrameLeft, width=EntryLength)
     E1.grid(row=0, column=1, sticky="e")
 
 
-    L2 = Label(FrameLeft, text="+/- Rep")
+    L2 = ttk.Label(FrameLeft, text="+/- Rep")
     L2.grid(row=1, column=0, sticky="e")
 
-    E2 = Entry(FrameLeft, bd=3, width=EntryLength)
+    E2 = ttk.Entry(FrameLeft, width=EntryLength)
     E2.grid(row=1, column=1, sticky="e")
 
 
-    L3 = Label(FrameLeft, text="- Rep")
+    L3 = ttk.Label(FrameLeft, text="- Rep")
     L3.grid(row=2, column=0, sticky="e")
 
-    # E3 = Text(Main, height=3, width=20, bd=3)
-    E3 = Entry(FrameLeft, bd=3, width=EntryLength)
+    # E3 = Text(Main, height=3, width=20)
+    E3 = ttk.Entry(FrameLeft, width=EntryLength)
     E3.grid(row=2, column=1, sticky="e")
 
 
-    L4 = Label(FrameLeft, text="Comment")
+    L4 = ttk.Label(FrameLeft, text="Comment")
     L4.grid(row=3, column=0, sticky="e")
 
-    # E4 = Entry(Main, bd=3)
-    E4 = Text(FrameLeft, height=5, width=20, bd=3)
+    # E4 = ttk.Entry(Main)
+    E4 = Text(FrameLeft, height=5, width=20)
     E4.grid(row=3, column=1, sticky="e")
 
 
-    L4 = Label(FrameRight, text="Rating")
+    L4 = ttk.Label(FrameRight, text="Rating")
     L4.grid(row=0, column=0, sticky="e")
 
     var = DoubleVar()
@@ -341,7 +343,7 @@ def Staff_apps_app(frame=None):
 
 
 
-def main_app(frame=None):
+def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
         Main = Tk()
         Main.title("Elitelupus Refund Template Maker")
@@ -376,11 +378,11 @@ def main_app(frame=None):
     # def grad_date():
     #     date.config(text = "Selected Date is: " + cal.get_date())
 
-    # # Add Button and Label
-    # Button(refund_tab, text = "Get Date",
+    # # Add Button and ttk.Label
+    # ttk.Button(refund_tab, text = "Get Date",
     #        command = grad_date).pack(pady = 20)
 
-    # date = Label(refund_tab, text = "")
+    # date = ttk.Label(refund_tab, text = "")
     # date.pack(pady = 20)
 
 
