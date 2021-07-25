@@ -71,7 +71,7 @@ def main_app(frame=None):
         cef.Shutdown()
 
 
-    F2 = Frame(Page1, height=frame_height2, width=frame_width, bg="#E9E9E9", relief="raise")
+    F2 = ttk.Frame(Page1, height=frame_height2, width=frame_width)
     F2.grid(row=1,column=0)
     F2.grid_propagate(0)
 

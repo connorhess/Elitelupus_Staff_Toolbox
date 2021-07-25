@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter.font import Font
+
 import pyperclip
 from functools import partial
 import sqlite3
@@ -14,6 +16,30 @@ import os.path as op
 
 apps = []
 
+try:
+    style = ttk.Style(PageMain)
+    # style.theme_create("MyStyle", parent="alt", settings={
+    #         "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
+    #         "TNotebook.Tab": {"configure": {"padding": [10, 10], "background": mygreen },
+    #         "map":       {"background": [("selected", "#dd0202")],
+    #                   "expand": [("selected", [1, 1, 1, 0])] } } } )
+    style.theme_create( "yummy", parent="alt", settings={
+    "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
+    "TNotebook.Tab": {
+        "configure": {"padding": [12, 10], "font" : ('URW Gothic L', '11', 'bold'), "background": "grey" },
+        "map":       {"background": [("selected", "#d2ffd2")],
+                      "expand": [("selected", [1, 1, 1, 0])] } } } )
+    style.theme_use("yummy")
+except:
+    pass
+
+# style = ttk.Style()
+# style.theme_create( "MyStyle", parent="alt", settings={
+#         "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
+#         "TNotebook.Tab": {"configure": {"padding": [10, 10] },}})
+
+# style.theme_use("MyStyle")
+# style.map('TNotebook.Tab',background=[('selected', "#2F4DFF")])
 
 blueprint_dirnames = []
 for (dirpath, dirnames, filenames) in walk(op.dirname(__file__)):
@@ -39,6 +65,24 @@ def main_app():
     # Main.geometry("720x296")
     Main.wm_attributes("-topmost", 1)
     # Main.update()
+
+    try:
+        style = ttk.Style(Main)
+        # style.theme_create("MyStyle", parent="alt", settings={
+        #         "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
+        #         "TNotebook.Tab": {"configure": {"padding": [10, 10], "background": mygreen },
+        #         "map":       {"background": [("selected", "#dd0202")],
+        #                   "expand": [("selected", [1, 1, 1, 0])] } } } )
+        style.theme_create( "yummy", parent="alt", settings={
+        "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
+        "TFrame": {"configure": {"background": "white" } },
+        "TNotebook.Tab": {
+            "configure": {"padding": [5, 3], "font" : ('URW Gothic L', '10', 'bold'), "background": "grey" },
+            "map":       {"background": [("selected", "#d2ffd2")],
+                          "expand": [("selected", [1, 1, 1, 0])] } } } )
+        style.theme_use("yummy")
+    except:
+        pass
 
     tab = {}
     # tabControl = ttk.Notebook(Main, width=Main.winfo_width())

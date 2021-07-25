@@ -35,7 +35,7 @@ def refund_app(frame=None):
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS refunds(Id TEXT, Data TEXT)''')
 
-    topFrame = Frame(Main)
+    topFrame = ttk.Frame(Main)
     topFrame.grid(row=0, column=0, sticky="w")
 
 
@@ -49,13 +49,13 @@ def refund_app(frame=None):
     ME1.insert(0,"ticket-")
 
 
-    middleFrame = Frame(Main)
+    middleFrame = ttk.Frame(Main)
     middleFrame.grid(row=1, column=0, sticky="nw")
 
-    middleRightFrame = Frame(middleFrame)
+    middleRightFrame = ttk.Frame(middleFrame)
     middleRightFrame.grid(row=0, column=0, sticky="nw")
 
-    middleLeftFrame = Frame(middleFrame)
+    middleLeftFrame = ttk.Frame(middleFrame)
     middleLeftFrame.grid(row=0, column=1, sticky="nw")
     ML2 = Label(middleLeftFrame, text="Actions:")
     ML2.grid(row=0, column=0, sticky="w")
@@ -291,10 +291,10 @@ def Staff_apps_app(frame=None):
 
     EntryLength=27
 
-    FrameLeft = Frame(Main)
+    FrameLeft = ttk.Frame(Main)
     FrameLeft.grid(row=0, column=0)
 
-    FrameRight = Frame(Main)
+    FrameRight = ttk.Frame(Main)
     FrameRight.grid(row=0, column=1)
 
     L1 = Label(FrameLeft, text="+ Rep")
