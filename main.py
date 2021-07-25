@@ -86,30 +86,6 @@ def main_app(theme):
                           "expand": [("selected", [1, 1, 1, 0])] } } } )
 
 
-        style.theme_create( "transparentGame", parent="alt", settings={
-        "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
-        "TFrame": {"configure": {"background": "#121212" } },
-
-        "TLabel": {"configure": {"background": "#121212",
-                                "foreground": "#EDEDED"} },
-
-        "TEntry": {"configure": {"background": "#121212",
-                                "foreground": "#121212"} },
-
-        "TButton": {"configure": {"background": "#121212",
-                                "foreground": "#EDEDED",
-                                "borderwidth": 2},
-
-                    "map": {"background": [("selected", "#DA0037"),("active", "#DA0037")],
-                                            "expand": [("active", [1, 1, 1, 0])]} },
-
-        "TNotebook.Tab": {
-            "configure": {"padding": [5, 3], "font" : ('URW Gothic L', '10', 'bold'), "background": "#444444", "foreground": "white"},
-            "map":       {"background": [("selected", "#DA0037")],
-                          "expand": [("selected", [1, 1, 1, 0])] } } } )
-
-
-
         style.theme_create( "DarkTheme", parent="alt", settings={
         "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
         "TFrame": {"configure": {"background": "#121212" } },
@@ -150,16 +126,12 @@ def main_app(theme):
         global toggle_state
         print(toggle_state)
         if toggle_state == 1:
-            style.theme_use("transparentGame")
-
-            Main.wm_attributes("-transparentcolor", "#121212")
+            Main.attributes('-alpha',0.8)
             Main.overrideredirect(1)
 
             toggle_state = 0
         else:
-            style.theme_use(str(theme))
-
-            Main.wm_attributes("-transparentcolor", "#7F493E")
+            Main.attributes('-alpha',1)
             Main.overrideredirect(0)
 
             toggle_state = 1
