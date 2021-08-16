@@ -112,7 +112,7 @@ def main_app(theme):
         # style.theme_use("LightTheme")
         # style.theme_use("DarkTheme")
         style.theme_use(str(theme))
-        Main.configure(bg="#444444" if theme == "DarkTheme" else "white")
+        Main.configure(bg="#121212" if theme == "DarkTheme" else "white")
         if theme == "transparentGame":
             Main.wm_attributes("-transparentcolor", "#121212")
             Main.overrideredirect(1)

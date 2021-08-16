@@ -90,6 +90,7 @@ def refund_app(frame=None, theme="DarkTheme"):
         pyperclip.copy(f"""Please Send Your:
 IGN:
 SteamID64:
+Server(OG/Normal):
 Items Lost:
 Reason:
 Evidence:
@@ -123,7 +124,7 @@ Evidence:
         refunds[refund_id].title(f"{refund_id}")
         refunds[refund_id].geometry("280x210")
         refunds[refund_id].wm_attributes("-topmost", 1)
-        refunds[refund_id].configure(bg="#444444" if theme == "DarkTheme" else "white")
+        refunds[refund_id].configure(bg="#121212" if theme == "DarkTheme" else "white")
         # refunds[refund_id].configure(background="#BEBEBE")
 
 
@@ -149,19 +150,27 @@ Evidence:
         E3.grid(row=2, column=1, sticky="e")
 
 
+        L6 = ttk.Label(refunds[refund_id], text="Server(OG/Normal)")
+        L6.grid(row=2, column=0, sticky="e")
+
+        # E3 = ttk.Entry(refunds[refund_id])
+        E6 = Text(refunds[refund_id], height=3, width=20)
+        E6.grid(row=2, column=1, sticky="e")
+
+
         L4 = ttk.Label(refunds[refund_id], text="Items Lost")
-        L4.grid(row=3, column=0, sticky="e")
+        L4.grid(row=4, column=0, sticky="e")
 
         # E4 = ttk.Entry(refunds[refund_id])
         E4 = Text(refunds[refund_id], height=3, width=20)
-        E4.grid(row=3, column=1, sticky="e")
+        E4.grid(row=4, column=1, sticky="e")
 
 
         L5 = ttk.Label(refunds[refund_id], text="Proof")
-        L5.grid(row=4, column=0, sticky="e")
+        L5.grid(row=5, column=0, sticky="e")
 
         E5 = ttk.Entry(refunds[refund_id], width=27)
-        E5.grid(row=4, column=1, sticky="e")
+        E5.grid(row=5, column=1, sticky="e")
 
         if open_data != None:
             print("calling Data")
@@ -170,6 +179,7 @@ Evidence:
             E3.insert(END, refund_data[refund_id].get("Items Lost"))
             E4.insert(END, refund_data[refund_id].get("Reason"))
             E5.insert(0, refund_data[refund_id].get("Proof"))
+            E6.insert(0, refund_data[refund_id].get("Server(OG/Normal)"))
 
 
         # L6 = ttk.Label(refunds[refund_id], text="Extra")
@@ -178,6 +188,7 @@ Evidence:
         refund_data[refund_id] = {"IGN": E1.get(),
                                         "SteamID64": steam_64(str(E2.get())),
                                         "Items Lost": (E4.get(0.0, END)).strip(),
+                                        "Server(OG/Normal)": (E6.get(0.0, END)).strip(),
                                         "Reason": (E3.get(0.0, END)).strip(),
                                         "Proof": E5.get()}
 
@@ -185,6 +196,7 @@ Evidence:
             pyperclip.copy(f"""IGN: {E1.get()}
 SteamID64: {steam_64(str(E2.get()))}
 Items Lost: {(E4.get(0.0, END)).strip()}
+Server(OG/Normal): {(E6.get(0.0, END)).strip()}
 Reason: {(E3.get(0.0, END)).strip()}
 Proof: {E5.get()}
 """)
