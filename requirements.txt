@@ -3,3 +3,4 @@ steam
 cefpython3
 tkcalendar
 timeago
+pypresence

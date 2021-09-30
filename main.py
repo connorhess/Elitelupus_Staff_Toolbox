@@ -9,10 +9,33 @@ import pyperclip
 from functools import partial
 import sqlite3
 import ast
+import sys
 
 from os import walk
 import importlib
 import os.path as op
+from pypresence import Presence  # The simple rich presence client in pypresence
+import time
+
+for i in range(0,10):
+    try:
+        RPC = Presence(893205771108622356, pipe=i)
+        RPC.connect()
+        # RPC.update(state="Rich Presence using pypresence!")  # Updates our presence
+        startTime = int(time.time())
+        RPC.update(details="Elitelupus Staff Toolbox",
+                   start=startTime,
+                   state="Staff Toolbox, Made By Connor2",
+                   large_image="icon_512x512",
+                   large_text="Staff Toolbox, Made By Connor2",
+                   buttons=[{"label": "Elitelupus Discord Server",
+                            "url": "https://discord.gg/YKC74XH"},
+                        {"label": "Server Rules",
+                            "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
+                   )
+        break
+    except:
+        print(f"Discord Rich PresenceNot Working on pipe: {i}")
 
 apps = []
 
@@ -59,6 +82,7 @@ for lib in blueprint_dirnames:
         print("error", e)
 
 
+
 def main_app(theme):
     global toggle_state
     Main = Tk()
@@ -72,42 +96,48 @@ def main_app(theme):
     # Main.attributes('-alpha',0.8)
     Main.iconbitmap('icon.ico')
 
+    def on_closing():
+        Main.destroy()
+        try:
+            RPC.close()
+        except:
+            pass
+        sys.exit()
+
+    Main.protocol("WM_DELETE_WINDOW", on_closing)
 
     try:
         style = ttk.Style(Main)
 
+        style.theme_create("LightTheme", parent="alt", settings={
+            "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0]}},
+            "TFrame": {"configure": {"background": "white"}},
+            "TNotebook.Tab": {
+                "configure": {"padding": [5, 3], "font": ('URW Gothic L', '10', 'bold'), "background": "grey"},
+                "map":       {"background": [("selected", "#d2ffd2")],
+                              "expand": [("selected", [1, 1, 1, 0])]}}})
 
-        style.theme_create( "LightTheme", parent="alt", settings={
-        "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
-        "TFrame": {"configure": {"background": "white" } },
-        "TNotebook.Tab": {
-            "configure": {"padding": [5, 3], "font" : ('URW Gothic L', '10', 'bold'), "background": "grey" },
-            "map":       {"background": [("selected", "#d2ffd2")],
-                          "expand": [("selected", [1, 1, 1, 0])] } } } )
+        style.theme_create("DarkTheme", parent="alt", settings={
+            "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0]}},
+            "TFrame": {"configure": {"background": "#121212"}},
 
+            "TLabel": {"configure": {"background": "#121212",
+                                     "foreground": "#EDEDED"}},
 
-        style.theme_create( "DarkTheme", parent="alt", settings={
-        "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
-        "TFrame": {"configure": {"background": "#121212" } },
+            "TEntry": {"configure": {"background": "#121212",
+                                     "foreground": "#121212"}},
 
-        "TLabel": {"configure": {"background": "#121212",
-                                "foreground": "#EDEDED"} },
+            "TButton": {"configure": {"background": "#121212",
+                                      "foreground": "#EDEDED",
+                                      "borderwidth": 2},
 
-        "TEntry": {"configure": {"background": "#121212",
-                                "foreground": "#121212"} },
+                        "map": {"background": [("selected", "#DA0037"), ("active", "#DA0037")],
+                                "expand": [("active", [1, 1, 1, 0])]}},
 
-        "TButton": {"configure": {"background": "#121212",
-                                "foreground": "#EDEDED",
-                                "borderwidth": 2},
-
-                    "map": {"background": [("selected", "#DA0037"),("active", "#DA0037")],
-                                            "expand": [("active", [1, 1, 1, 0])]} },
-
-        "TNotebook.Tab": {
-            "configure": {"padding": [5, 3], "font" : ('URW Gothic L', '10', 'bold'), "background": "#444444", "foreground": "white"},
-            "map":       {"background": [("selected", "#DA0037")],
-                          "expand": [("selected", [1, 1, 1, 0])] } } } )
-
+            "TNotebook.Tab": {
+                "configure": {"padding": [5, 3], "font": ('URW Gothic L', '10', 'bold'), "background": "#444444", "foreground": "white"},
+                "map":       {"background": [("selected", "#DA0037")],
+                              "expand": [("selected", [1, 1, 1, 0])]}}})
 
         # style.theme_use("LightTheme")
         # style.theme_use("DarkTheme")
@@ -119,36 +149,30 @@ def main_app(theme):
     except:
         pass
 
-
-
     toggle_state = 1
+
     def toggle_theme():
         global toggle_state
         print(toggle_state)
         if toggle_state == 1:
-            Main.attributes('-alpha',0.8)
+            Main.attributes('-alpha', 0.8)
             Main.overrideredirect(1)
 
             toggle_state = 0
         else:
-            Main.attributes('-alpha',1)
+            Main.attributes('-alpha', 1)
             Main.overrideredirect(0)
 
             toggle_state = 1
 
-
-
     menubar = Menu(Main)
-
 
     filemenu = Menu(menubar, tearoff=0)
     filemenu.add_command(label="Toggle Game Lock", command=toggle_theme)
 
     menubar.add_cascade(label="Settings", menu=filemenu)
 
-
     Main.config(menu=menubar)
-
 
     tab = {}
     # tabControl = ttk.Notebook(Main, width=Main.winfo_width())
@@ -160,11 +184,31 @@ def main_app(theme):
 
         app.main_app(frame=tab[name], theme=theme)
 
+    def routine(event):
+        tab_name = (tabControl.tab(tabControl.select(), "text"))
+        # startTime = int(time.time())
+        try:
+            RPC.update(details="Elitelupus Staff Toolbox",
+                       start=startTime,
+                       state=f"Viewing: {tab_name}",
+                       large_image="icon_512x512",
+                       large_text="Staff Toolbox, Made By Connor2",
+                       buttons=[{"label": "Elitelupus Discord Server",
+                                "url": "https://discord.gg/YKC74XH"},
+                            {"label": "Server Rules",
+                                "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
+                       )
+        except:
+            pass
+
+    tabControl.bind("<<NotebookTabChanged>>", routine)
+
     tabControl.grid(row=0, column=0)
 
     Main.mainloop()
 
+
 if __name__ == '__main__':
     # main_app(theme = "transparentGame")
-    main_app(theme = "DarkTheme")
+    main_app(theme="DarkTheme")
     # main_app(theme = "LightTheme")
