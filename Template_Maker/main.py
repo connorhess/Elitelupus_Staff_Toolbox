@@ -344,18 +344,37 @@ def Staff_apps_app(frame=None, theme="DarkTheme"):
     L4 = ttk.Label(FrameRight, text="Rating")
     L4.grid(row=0, column=0, sticky="e")
 
-    var = DoubleVar()
-    scale = Scale(FrameRight, variable=var, from_=0, to=5, resolution=0.1)
+    scale_var = DoubleVar()
+    scale = Scale(FrameRight, variable=scale_var, from_=0, to=5, resolution=0.1)
     scale.grid(row=1, column=0)
 
     def copy_to_clip():
-        pyperclip.copy(f"""IGN: {E1.get()}
-SteamID64: {steam_64(str(E2.get()))}
-Items Lost: {(E4.get(0.0, END)).strip()}
-Server(OG/Normal): {(E6.get()).strip()}
-Reason: {(E3.get(0.0, END)).strip()}
-Proof: {E5.get()}
-""")
+        empty_star = "☆"
+        full_star = "★"
+        text = ""
+
+        text += f"[color=#008e02]  + Rep: {E1.get()}[/color]\n" if len(E1.get()) > 0 else ""
+        text += f"[color=#ffa339]+/- Rep: {E2.get()}[/color]\n" if len(E2.get()) > 0 else ""
+        text += f"[color=#c10300]  - Rep: {E3.get()}[/color]\n" if len(E3.get()) > 0 else ""
+        text += f"\n{E4.get(0.0, END)}\n" if len(E4.get(0.0, END)) > 0 else ""
+
+        star_text = ""
+
+        rating = int(scale_var.get())
+        empty_stars = int(5 - rating)
+        for item in range(rating):
+            star_text += full_star
+
+        for star in range(empty_stars):
+            star_text += empty_star
+
+        star_text += f"   {scale_var.get()}/5"
+        text += f"[align=center]{star_text}[/align]"
+
+        pyperclip.copy(text)
+
+    B2 = ttk.Button(FrameLeft, text="Copy To Clipboard", command=copy_to_clip)
+    B2.grid(row=4, column=1, sticky="w")
 
     if frame == None:
         Main.mainloop()
