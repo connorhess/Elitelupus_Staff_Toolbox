@@ -151,11 +151,11 @@ Evidence:
 
 
         L6 = ttk.Label(refunds[refund_id], text="Server(OG/Normal)")
-        L6.grid(row=2, column=0, sticky="e")
+        L6.grid(row=3, column=0, sticky="e")
 
         # E3 = ttk.Entry(refunds[refund_id])
-        E6 = Text(refunds[refund_id], height=3, width=20)
-        E6.grid(row=2, column=1, sticky="e")
+        E6 = Entry(refunds[refund_id], height=3, width=20)
+        E6.grid(row=3, column=1, sticky="e")
 
 
         L4 = ttk.Label(refunds[refund_id], text="Items Lost")
@@ -188,7 +188,7 @@ Evidence:
         refund_data[refund_id] = {"IGN": E1.get(),
                                         "SteamID64": steam_64(str(E2.get())),
                                         "Items Lost": (E4.get(0.0, END)).strip(),
-                                        "Server(OG/Normal)": (E6.get(0.0, END)).strip(),
+                                        "Server(OG/Normal)": (E6.get()).strip(),
                                         "Reason": (E3.get(0.0, END)).strip(),
                                         "Proof": E5.get()}
 
@@ -196,7 +196,7 @@ Evidence:
             pyperclip.copy(f"""IGN: {E1.get()}
 SteamID64: {steam_64(str(E2.get()))}
 Items Lost: {(E4.get(0.0, END)).strip()}
-Server(OG/Normal): {(E6.get(0.0, END)).strip()}
+Server(OG/Normal): {(E6.get()).strip()}
 Reason: {(E3.get(0.0, END)).strip()}
 Proof: {E5.get()}
 """)
