@@ -17,7 +17,7 @@ import os.path as op
 from pypresence import Presence  # The simple rich presence client in pypresence
 import time
 
-for i in range(0,10):
+for i in range(0, 10):
     try:
         RPC = Presence(893205771108622356, pipe=i)
         RPC.connect()
@@ -29,58 +29,14 @@ for i in range(0,10):
                    large_image="icon_512x512",
                    large_text="Staff Toolbox, Made By Connor2",
                    buttons=[{"label": "Elitelupus Discord Server",
-                            "url": "https://discord.gg/YKC74XH"},
-                        {"label": "Server Rules",
-                            "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
+                             "url": "https://discord.gg/YKC74XH"},
+                            {"label": "Server Rules",
+                             "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
                    )
+        print("Connected on pipe", i)
         break
     except:
         print(f"Discord Rich PresenceNot Working on pipe: {i}")
-
-apps = []
-
-# try:
-#     style = ttk.Style(PageMain)
-#     # style.theme_create("MyStyle", parent="alt", settings={
-#     #         "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
-#     #         "TNotebook.Tab": {"configure": {"padding": [10, 10], "background": mygreen },
-#     #         "map":       {"background": [("selected", "#dd0202")],
-#     #                   "expand": [("selected", [1, 1, 1, 0])] } } } )
-#     style.theme_create( "yummy", parent="alt", settings={
-#     "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
-#     "TNotebook.Tab": {
-#         "configure": {"padding": [12, 10], "font" : ('URW Gothic L', '11', 'bold'), "background": "grey" },
-#         "map":       {"background": [("selected", "#d2ffd2")],
-#                       "expand": [("selected", [1, 1, 1, 0])] } } } )
-#     style.theme_use("yummy")
-# except:
-#     pass
-
-# style = ttk.Style()
-# style.theme_create( "MyStyle", parent="alt", settings={
-#         "TNotebook": {"configure": {"tabmargins": [2, 5, 2, 0] } },
-#         "TNotebook.Tab": {"configure": {"padding": [10, 10] },}})
-
-# style.theme_use("MyStyle")
-# style.map('TNotebook.Tab',background=[('selected', "#2F4DFF")])
-
-blueprint_dirnames = []
-for (dirpath, dirnames, filenames) in walk(op.dirname(__file__)):
-    blueprint_dirnames.extend(dirnames)
-    break
-
-for lib in blueprint_dirnames:
-    try:
-        if str(lib) != ".git":
-            print(lib)
-            lib_mod = f'{lib}.main'
-            # cls = getattr(importlib.import_module(lib_mod), "main_app")
-            cls = (importlib.import_module(lib_mod))
-            apps.append((cls, str(lib)))
-            print(f"Successfully imported blueprint: {lib}")
-    except Exception as e:
-        print("error", e)
-
 
 
 def main_app(theme):
@@ -174,15 +130,35 @@ def main_app(theme):
 
     Main.config(menu=menubar)
 
-    tab = {}
     # tabControl = ttk.Notebook(Main, width=Main.winfo_width())
     tabControl = ttk.Notebook(Main)
 
-    for app, name in apps:
-        tab.update({name: ttk.Frame(tabControl)})
-        tabControl.add(tab[name], text=name.replace('_', ' '))
+    Elitelupus_ban_search_frame = ttk.Frame(tabControl)
+    tabControl.add(Elitelupus_ban_search_frame, text=(
+        "Elitelupus_ban_search").replace('_', ' '))
+    import Elitelupus_ban_search
+    Elitelupus_ban_search.main_app(
+        frame=Elitelupus_ban_search_frame, theme=theme)
 
-        app.main_app(frame=tab[name], theme=theme)
+
+    Sit_Counter_frame = ttk.Frame(tabControl)
+    tabControl.add(Sit_Counter_frame, text=("Sit_Counter").replace('_', ' '))
+    import Sit_Counter
+    Sit_Counter.main_app(frame=Sit_Counter_frame, theme=theme)
+
+
+    Template_Maker_frame = ttk.Frame(tabControl)
+    tabControl.add(Template_Maker_frame, text=(
+        "Template_Maker").replace('_', ' '))
+    import Template_Maker
+    Template_Maker.main_app(frame=Template_Maker_frame, theme=theme)
+
+
+    Useful_Links_frame = ttk.Frame(tabControl)
+    tabControl.add(Useful_Links_frame, text=("Useful_Links").replace('_', ' '))
+    import Useful_Links
+    Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
+
 
     def routine(event):
         tab_name = (tabControl.tab(tabControl.select(), "text"))
@@ -194,9 +170,9 @@ def main_app(theme):
                        large_image="icon_512x512",
                        large_text="Staff Toolbox, Made By Connor2",
                        buttons=[{"label": "Elitelupus Discord Server",
-                                "url": "https://discord.gg/YKC74XH"},
-                            {"label": "Server Rules",
-                                "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
+                                 "url": "https://discord.gg/YKC74XH"},
+                                {"label": "Server Rules",
+                                 "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
                        )
         except:
             pass
