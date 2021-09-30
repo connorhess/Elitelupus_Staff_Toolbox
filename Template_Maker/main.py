@@ -154,7 +154,7 @@ Evidence:
         L6.grid(row=3, column=0, sticky="e")
 
         # E3 = ttk.Entry(refunds[refund_id])
-        E6 = Entry(refunds[refund_id], height=3, width=20)
+        E6 = Entry(refunds[refund_id])
         E6.grid(row=3, column=1, sticky="e")
 
 
@@ -348,7 +348,14 @@ def Staff_apps_app(frame=None, theme="DarkTheme"):
     scale = Scale(FrameRight, variable=var, from_=0, to=5, resolution=0.1)
     scale.grid(row=1, column=0)
 
-
+    def copy_to_clip():
+        pyperclip.copy(f"""IGN: {E1.get()}
+SteamID64: {steam_64(str(E2.get()))}
+Items Lost: {(E4.get(0.0, END)).strip()}
+Server(OG/Normal): {(E6.get()).strip()}
+Reason: {(E3.get(0.0, END)).strip()}
+Proof: {E5.get()}
+""")
 
     if frame == None:
         Main.mainloop()
