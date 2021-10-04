@@ -169,8 +169,8 @@ def main_app(theme):
         tabControl.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
         import Server_Status
         Server_Status.main_app(frame=Server_Status_frame, theme=theme)
-    except:
-        print("issue with server_data")
+    except Exception as e:
+        print("issue with server_data; ", e)
 
 
     def routine(event):

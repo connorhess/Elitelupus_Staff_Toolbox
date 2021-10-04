@@ -174,12 +174,15 @@ Evidence:
 
         if open_data != None:
             print("calling Data")
-            E1.insert(0, refund_data[refund_id].get("IGN"))
-            E2.insert(0, refund_data[refund_id].get("SteamID64"))
-            E3.insert(END, refund_data[refund_id].get("Items Lost"))
-            E4.insert(END, refund_data[refund_id].get("Reason"))
-            E5.insert(0, refund_data[refund_id].get("Proof"))
-            E6.insert(0, refund_data[refund_id].get("Server(OG/Normal)"))
+            try:
+                E1.insert(0, refund_data[refund_id].get("IGN"))
+                E2.insert(0, refund_data[refund_id].get("SteamID64"))
+                E3.insert(END, refund_data[refund_id].get("Items Lost"))
+                E4.insert(END, refund_data[refund_id].get("Reason"))
+                E5.insert(0, refund_data[refund_id].get("Proof"))
+                E6.insert(0, refund_data[refund_id].get("Server(OG/Normal)"))
+            except:
+                print("error calling field")
 
 
         # L6 = ttk.Label(refunds[refund_id], text="Extra")
@@ -204,6 +207,7 @@ Proof: {E5.get()}
                                         "SteamID64": steam_64(str(E2.get())),
                                         "Items Lost": (E4.get(0.0, END)).strip(),
                                         "Reason": (E3.get(0.0, END)).strip(),
+                                        "Server(OG/Normal)": (E6.get()).strip(),
                                         "Proof": E5.get()}
             # refunds[refund_id].destroy()
             save_data(refund_id=refund_id)

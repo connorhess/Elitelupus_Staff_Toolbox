@@ -60,7 +60,9 @@ class ScrollableFrame(ttk.Frame):
         canvas.configure(yscrollcommand=scrollbar.set)
 
         canvas.pack(side="left", fill="both", expand=True)
+        # canvas.grid(row=0, column=0, sticky="w")
         scrollbar.pack(side="right", fill="y")
+        # scrollbar.grid(row=0, column=1, sticky="w")
 
 
 def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume", "Price", "Profit"), total_width=520, parent_size=0):
@@ -94,9 +96,12 @@ def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume"
 def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
         Page1 = Tk()
-        Page1.title("Elitelupus Refund Template Maker")
+        Page1.title("Elitelupus Server Monitor")
+        # Page1.geometry("720x296")
+        # Page1.resizable(False, False)
     else:
         Page1 = frame
+
 
     Stats1 = StringVar()
     label1 = ttk.Label(Page1, textvariable=Stats1)
@@ -123,31 +128,45 @@ def main_app(frame=None, theme="DarkTheme"):
     def update():
         global id_s
         while True:
-            info = a2s.info(elite_server_1)
-            Stats1.set(f"{info.player_count}/{info.max_players} {info.server_name}")
-            print(f"{info.player_count}/{info.max_players} {info.server_name}")
 
-            info = a2s.info(elite_server_2)
-            Stats2.set(f"{info.player_count}/{info.max_players} {info.server_name}")
-            print(f"{info.player_count}/{info.max_players} {info.server_name}")
+            try:
+                info = a2s.info(elite_server_1)
+                Stats1.set(f"{info.player_count}/{info.max_players} {info.server_name}")
+                print(f"{info.player_count}/{info.max_players} {info.server_name}")
 
-            for i in Trade_list.get_children():
-                Trade_list.delete(i)
-            for i in Trade_list2.get_children():
-                Trade_list2.delete(i)
+                for i in Trade_list.get_children():
+                    Trade_list.delete(i)
 
-            for i, player in enumerate(players_s1.keys()):
-                id_s += 1
-                Item = (player, players_s1[player][0], players_s1[player][1])
-                Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
-
-            for player in players_s2.keys():
-                id_s += 1
-                Item = (player, players_s2[player][0], players_s2[player][1])
-                Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+                for i, player in enumerate(players_s1.keys()):
+                    id_s += 1
+                    Item = (player, players_s1[player][0], players_s1[player][1])
+                    Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+            except:
+                Stats1.set(f"Server 1 Crashed or code is unable to get data")
+                for i in Trade_list.get_children():
+                    Trade_list.delete(i)
 
 
-            time.sleep(60)
+
+            try:
+                info = a2s.info(elite_server_2)
+                Stats2.set(f"{info.player_count}/{info.max_players} {info.server_name}")
+                print(f"{info.player_count}/{info.max_players} {info.server_name}")
+
+                for i in Trade_list2.get_children():
+                    Trade_list2.delete(i)
+
+                for player in players_s2.keys():
+                    id_s += 1
+                    Item = (player, players_s2[player][0], players_s2[player][1])
+                    Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+            except:
+                Stats1.set(f"Server 1 Crashed or code is unable to get data")
+                for i in Trade_list.get_children():
+                    Trade_list.delete(i)
+
+
+            time.sleep(30)
 
 
     thread = threading.Thread(target=update)
