@@ -33,11 +33,11 @@ elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
 
 players_s1 = {}
 for player in a2s.players(elite_server_1):
-    players_s1.update({player.name: (player.score, player.duration)})
+    players_s1.update({player.name: (player.score, int(player.duration))})
 
 players_s2 = {}
 for player in a2s.players(elite_server_2):
-    players_s2.update({player.name: (player.score, player.duration)})
+    players_s2.update({player.name: (player.score, int(player.duration))})
 
 
 class ScrollableFrame(ttk.Frame):
@@ -63,7 +63,7 @@ class ScrollableFrame(ttk.Frame):
         scrollbar.pack(side="right", fill="y")
 
 
-def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume", "Price", "Profit"), total_width=500, parent_size=0):
+def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume", "Price", "Profit"), total_width=520, parent_size=0):
     tree_list = ttk.Treeview(master)
     tree_list["columns"] = columns
 
