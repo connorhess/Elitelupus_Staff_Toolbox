@@ -63,7 +63,7 @@ class ScrollableFrame(ttk.Frame):
         scrollbar.pack(side="right", fill="y")
 
 
-def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume", "Price", "Profit"), total_width=690, parent_size=0):
+def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume", "Price", "Profit"), total_width=500, parent_size=0):
     tree_list = ttk.Treeview(master)
     tree_list["columns"] = columns
 

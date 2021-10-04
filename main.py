@@ -164,11 +164,13 @@ def main_app(theme):
     import Useful_Links
     Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
 
-
-    Server_Status_frame = ttk.Frame(tabControl)
-    tabControl.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
-    import Server_Status
-    Server_Status.main_app(frame=Server_Status_frame, theme=theme)
+    try:
+        Server_Status_frame = ttk.Frame(tabControl)
+        tabControl.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
+        import Server_Status
+        Server_Status.main_app(frame=Server_Status_frame, theme=theme)
+    except:
+        print("issue with server_data")
 
 
     def routine(event):
