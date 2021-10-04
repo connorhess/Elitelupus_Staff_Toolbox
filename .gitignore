@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 *.db
 Elitelupus Staff Toolbox V1.exe
+*.exe

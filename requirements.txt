@@ -4,3 +4,5 @@ cefpython3
 tkcalendar
 timeago
 pypresence
+python-a2s
+python-valve
