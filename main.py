@@ -80,6 +80,11 @@ def main_app(theme):
             "TLabel": {"configure": {"background": "#121212",
                                      "foreground": "#EDEDED"}},
 
+            "Treeview": {"configure": {"fieldbackground": "#121212"} },
+            "Treeview.Item": {"configure": {"foreground": "#121212"} },
+            "Treeview.Heading": {"configure": {"background": "#121212",
+                                                "foreground": "#EDEDED"} },
+
             "TEntry": {"configure": {"background": "#121212",
                                      "foreground": "#121212"}},
 
@@ -158,6 +163,12 @@ def main_app(theme):
     tabControl.add(Useful_Links_frame, text=("Useful_Links").replace('_', ' '))
     import Useful_Links
     Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
+
+
+    Server_Status_frame = ttk.Frame(tabControl)
+    tabControl.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
+    import Server_Status
+    Server_Status.main_app(frame=Server_Status_frame, theme=theme)
 
 
     def routine(event):
