@@ -15,6 +15,7 @@ import sys
 import webbrowser
 import threading
 import time
+import requests
 
 # https://python-valve.readthedocs.io/en/latest/rcon.html
 import valve.source as source
@@ -22,6 +23,7 @@ import valve.source as source
 import a2s
 import valve.source.master_server as master_server
 
+import Elitelupus_ban_search as ebs
 
 import tkinter as tk
 
@@ -30,6 +32,7 @@ id_s = 0
 
 elite_server_1 = ("gmod-drp1-uk.elitelupus.com", 27015)
 elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
+
 
 players_s1 = {}
 for player in a2s.players(elite_server_1):
@@ -79,19 +82,6 @@ def create_tree(master, columns=("Symbol", "Channel", "Ticket", "Time", "Volume"
 
     return tree_list
 
-# def check_for_rdm(server):
-#     rdmers = {}
-
-#     players = a2s.players(server)
-#     # print("="*60)
-#     # print("{score} {name} {duration}".format(**player))
-#     for name in user_kills.keys():
-#         kills = int(players_s1[name])
-#         new_kills = int(player['score']) - kills
-#         if new_kills >= 4:
-#             pass
-
-#     return rdmers
 
 def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
@@ -108,7 +98,7 @@ def main_app(frame=None, theme="DarkTheme"):
     label1.grid(row=1,column=0)
 
     Trade_list = create_tree(Page1, columns=("Name", "Score", "Duration"))
-    # Trade_list['height'] = 12
+    Trade_list['height'] = 5
     Trade_list.grid(row=2, column=0, sticky="w")
 
 
@@ -117,12 +107,8 @@ def main_app(frame=None, theme="DarkTheme"):
     label2.grid(row=3,column=0)
 
     Trade_list2 = create_tree(Page1, columns=("Name", "Score", "Duration"))
-    # Trade_list2['height'] = 12
+    Trade_list2['height'] = 5
     Trade_list2.grid(row=4, column=0, sticky="w")
-
-
-
-
 
 
     def update():
@@ -132,12 +118,15 @@ def main_app(frame=None, theme="DarkTheme"):
             try:
                 info = a2s.info(elite_server_1)
                 Stats1.set(f"{info.player_count}/{info.max_players} {info.server_name}")
-                print(f"{info.player_count}/{info.max_players} {info.server_name}")
 
                 for i in Trade_list.get_children():
                     Trade_list.delete(i)
 
-                for i, player in enumerate(players_s1.keys()):
+                players_s1 = {}
+                for player in a2s.players(elite_server_1):
+                    players_s1.update({player.name: (player.score, int(player.duration))})
+
+                for player in players_s1.keys():
                     id_s += 1
                     Item = (player, players_s1[player][0], players_s1[player][1])
                     Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
@@ -151,10 +140,13 @@ def main_app(frame=None, theme="DarkTheme"):
             try:
                 info = a2s.info(elite_server_2)
                 Stats2.set(f"{info.player_count}/{info.max_players} {info.server_name}")
-                print(f"{info.player_count}/{info.max_players} {info.server_name}")
 
                 for i in Trade_list2.get_children():
                     Trade_list2.delete(i)
+
+                players_s2 = {}
+                for player in a2s.players(elite_server_2):
+                    players_s2.update({player.name: (player.score, int(player.duration))})
 
                 for player in players_s2.keys():
                     id_s += 1

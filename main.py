@@ -164,13 +164,26 @@ def main_app(theme):
     import Useful_Links
     Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
 
+
+    Stats_frame = ttk.Frame(tabControl)
+    tabControl.add(Stats_frame, text="Stats")
+    tabControl2 = ttk.Notebook(Stats_frame)
+
     try:
         Server_Status_frame = ttk.Frame(tabControl)
-        tabControl.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
+        tabControl2.add(Server_Status_frame, text=("Server_Status").replace('_', ' '))
         import Server_Status
         Server_Status.main_app(frame=Server_Status_frame, theme=theme)
     except Exception as e:
         print("issue with server_data; ", e)
+
+    try:
+        Staff_Distribution_frame = ttk.Frame(tabControl)
+        tabControl2.add(Staff_Distribution_frame, text=("Staff_Distribution").replace('_', ' '))
+        import Staff_Distribution
+        Staff_Distribution.main_app(frame=Staff_Distribution_frame, theme=theme)
+    except Exception as e:
+        print("issue with Staff_Distribution; ", e)
 
 
     def routine(event):
@@ -193,6 +206,7 @@ def main_app(theme):
     tabControl.bind("<<NotebookTabChanged>>", routine)
 
     tabControl.grid(row=0, column=0)
+    tabControl2.grid(row=0, column=0)
 
     Main.mainloop()
 

@@ -79,21 +79,22 @@ def get_profile(SteamID_entry="STEAM_0:1:526199909"):
     return (data_of_steam_profile)
 
 
-def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
+def get_steam_profile_data(steam_id="STEAM_0:1:526199909", mod=None):
     data = get_profile(SteamID_entry=steam_id)
     formatted_data = {}
 
     try:
+        # print(data)
         formatted_data.update({"steamID": data[0].replace("steamID: ", "")})
         formatted_data.update({"steamID3": data[1].replace("steamID3: ", "")})
         formatted_data.update({"steamID64 (Dec)": data[2].replace("steamID64 (Dec): ", "")})
         formatted_data.update({"steamID64 (Hex)": data[3].replace("steamID64 (Hex): ", "")})
-        formatted_data.update({"profile state": "Private"})
+        formatted_data.update({"profile state": data[6].replace("profile state ", "")})
         # formatted_data.update({"profile state": data[6].replace("profile state ", "")})
-        formatted_data.update({"profile created": data[6].replace("profile created ", "")})
-        formatted_data.update({"name": data[7].replace("name ", "")})
-        formatted_data.update({"real name": data[8].replace("real name ", "")})
-        formatted_data.update({"location": data[9].replace("location ", "")})
+        formatted_data.update({"profile created": data[7].replace("profile created ", "")})
+        formatted_data.update({"name": data[8].replace("name ", "")})
+        formatted_data.update({"real name": data[9].replace("real name ", "")})
+        formatted_data.update({"location": data[10].replace("location ", "")})
 
         customURL = data[4].replace("customURL ", "")
         customURL = customURL.replace("<a href=\"", "")
@@ -108,52 +109,49 @@ def get_steam_profile_data(steam_id="STEAM_0:1:526199909"):
         profile = profile.replace("\" target=\"_blanl\">", ";=")
         profile = profile.split(";=")
         formatted_data.update({"profile": profile[0]})
-    except:
-        messagebox.showerror("Error", "User Profile does not exist anymore or never existed")
+    except Exception as e:
+        if mod == None:
+            messagebox.showerror("Error", "User Profile does not exist anymore or never existed")
+        else:
+            print(e)
+            formatted_data.update({"steamID": None})
+            formatted_data.update({"steamID3": None})
+            formatted_data.update({"steamID64 (Dec)": None})
+            formatted_data.update({"steamID64 (Hex)": None})
+            formatted_data.update({"profile state": None})
+            formatted_data.update({"profile created": None})
+            formatted_data.update({"name": None})
+            formatted_data.update({"real name": None})
+            formatted_data.update({"location": None})
+            formatted_data.update({"customURL": None})
+            formatted_data.update({"profile": None})
 
     return formatted_data
 
-# # <!-- start: memberlist_user -->
-# def get_elite_profile(username="Connor2"):
-#     headers = {'User-Agent': 'Mozilla/5.0'}
 
-#     response = session.post(f"https://elitelupus.com/forums/memberlist.php?username={username}", headers=headers)
-#     myhtml = (response.text)
+def get_steam_profile(steam_id="STEAM_0:1:526199909", mod=None):
+    data = get_profile(SteamID_entry=steam_id)
+    formatted_data = {}
 
-#     text = ''
-#     for item in myhtml.split("<!-- end: memberlist_user -->"):
-#         if "<!-- start: memberlist_user -->" in item:
-#             text += (item [ item.find("<!-- start: memberlist_user -->")+len("<!-- end: memberlist_user -->") : ])
-#             break
+    try:
+        # print(data)
+        for row in data:
+            # print('row', row)
+            if "name" in row:
+                # print(row)
+                formatted_data.update({"name": row.replace("name ", "")})
+                break
 
-#     text2 = (text.replace("""<td class="trow1" align="center"><!-- start: memberlist_user_avatar -->""", "").replace("<tr>", "").replace("->", "")).split("\n")
-#     # print(text2)
+    except Exception as e:
+        print(e)
+        if mod == None:
+            messagebox.showerror("Error", "User Profile does not exist anymore or never existed")
+        else:
+            print(e)
+            formatted_data.update({"name": None})
 
-#     # data_of_steam_profile = []
-#     url = "https://elitelupus.com/forums/member.php?action=profile&uid=11697"
+    return formatted_data
 
-#     for row in text2:
-#         if "<td class=\"trow1\"><a href=\"" in row:
-#             url = (((row.strip()).replace("<td class=\"trow1\"><a href=\"", "").replace("\"", "").split('>'))[0]).replace("amp;", "")
-#             print(url)
-#             break
-
-
-
-
-#     response = session.get(url, headers=headers)
-#     myhtml2 = (response.text)
-#     # print(myhtml2)
-
-#     text = ''
-#     for item in myhtml2.split("</tbody>"):
-#         if "<tbody>" in item:
-#             text += (item [ item.find("<tbody>")+len("</tbody>") : ])
-#             break
-
-#     print(text)
-
-# print(get_elite_profile())
 
 
 def get_bans(SteamID_entry="STEAM_0:1:526199909"):
