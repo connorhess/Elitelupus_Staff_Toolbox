@@ -273,7 +273,7 @@ def main_app(frame=None, theme="DarkTheme"):
 
         result_frame = ttk.Frame(Main)
         # result_frame.grid(row=1, column=0)
-        result_frame.pack(fill="both", side="bottom")
+        result_frame.pack(fill="both", side="top")
         resultPage = result_frame
 
         Searching_Label = ttk.Label(resultPage, text="Searching...")
