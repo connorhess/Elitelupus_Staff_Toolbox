@@ -38,12 +38,26 @@ public_staff_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?t
 elite_server_1 = ("gmod-drp1-uk.elitelupus.com", 27015)
 elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
 
+colors = {
+    "Management": "#990000",
+    "Staff Manager": "#F04000",
+    "Assistant SM": "#8900F0",
+    "Snr Admin": "#d207d3",
+    "Admin": "#FA1E8A",
+    "Snr Moderator": "#15c000",
+    "Moderator": "#4a86e8",
+    "Snr Operator": "#38761d",
+    "Operator": "#93c47d",
+    "T-Staff": "#b6d7a8",
+    "user": "grey"
+}
 
 # df = pandas.read_csv(public_staff_url)
 # print(df)
 
 def get_staff_list():
     staff_list = {}
+    staff_list_inv = {}
     data = requests.get(public_staff_url)
     data = (data.content).decode('utf-8')
     data = data.split('\n')
@@ -59,12 +73,12 @@ def get_staff_list():
             except:
                 steam_name = new_data[2].replace("\"", '')
                 # print(new_data[2].replace("\"", ''), steam_id)
-
-            staff_list.update({new_data[2].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[2].replace("\"", ''), "Rank": new_data[1].replace("\"", ''), "SteamID": new_data[3].replace("\"", ''), "Discord ID": new_data[4].replace("\"", '')}})
+            staff_list.update({new_data[2].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[2].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[3].replace("\"", ''), "Discord ID": new_data[4].replace("\"", '')}})
+            staff_list_inv.update({steam_name: {"Server": None, "Steam_Name": steam_name, "Name": new_data[2].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[3].replace("\"", ''), "Discord ID": new_data[4].replace("\"", '')}})
 
             # time.sleep(1)
 
-    return staff_list
+    return (staff_list, staff_list_inv)
 
 def get_staff_server(staff_list):
     players_s1 = {}
@@ -163,6 +177,38 @@ def main_app(frame=None, theme="DarkTheme"):
         Page1.title("Elitelupus Server Monitor")
         # Page1.geometry("720x296")
         # Page1.resizable(False, False)
+        style = ttk.Style(Page1)
+        style.theme_create("DarkTheme", parent="alt", settings={
+            "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0]}},
+            "TFrame": {"configure": {"background": "#121212"}},
+
+            "TLabel": {"configure": {"background": "#121212",
+                                     "foreground": "#EDEDED"}},
+
+            "Treeview": {"configure": {"fieldbackground": "#121212"} },
+            "Treeview.Item": {"configure": {"foreground": "#121212"} },
+            "Treeview.Heading": {"configure": {"background": "#121212",
+                                                "foreground": "#EDEDED"} },
+
+            "TEntry": {"configure": {"background": "#121212",
+                                     "foreground": "#121212"}},
+
+            "TButton": {"configure": {"background": "#121212",
+                                      "foreground": "#EDEDED",
+                                      "borderwidth": 2},
+
+                        "map": {"background": [("selected", "#DA0037"), ("active", "#DA0037")],
+                                "expand": [("active", [1, 1, 1, 0])]}},
+
+            "TNotebook.Tab": {
+                "configure": {"padding": [5, 3], "font": ('URW Gothic L', '10', 'bold'), "background": "#444444", "foreground": "white"},
+                "map":       {"background": [("selected", "#DA0037")],
+                              "expand": [("selected", [1, 1, 1, 0])]}}})
+
+        # style.theme_use("LightTheme")
+        # style.theme_use("DarkTheme")
+        style.theme_use("DarkTheme")
+
     else:
         Page1 = frame
 
@@ -171,18 +217,18 @@ def main_app(frame=None, theme="DarkTheme"):
     label1 = ttk.Label(Page1, textvariable=Stats1)
     label1.grid(row=1,column=0)
 
-    Trade_list = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
-    Trade_list['height'] = 5
-    Trade_list.grid(row=2, column=0, sticky="w")
+    Trade_list3 = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
+    Trade_list3['height'] = 5
+    Trade_list3.grid(row=2, column=0, sticky="w")
 
 
     Stats2 = StringVar()
     label2 = ttk.Label(Page1, textvariable=Stats2)
     label2.grid(row=3,column=0)
 
-    Trade_list2 = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
-    Trade_list2['height'] = 5
-    Trade_list2.grid(row=4, column=0, sticky="w")
+    Trade_list4 = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
+    Trade_list4['height'] = 5
+    Trade_list4.grid(row=4, column=0, sticky="w")
 
 
     def update():
@@ -191,14 +237,14 @@ def main_app(frame=None, theme="DarkTheme"):
 
             try:
 
-                for i in Trade_list.get_children():
-                    Trade_list.delete(i)
+                for i in Trade_list3.get_children():
+                    Trade_list3.delete(i)
 
-                for i in Trade_list2.get_children():
-                    Trade_list2.delete(i)
+                for i in Trade_list4.get_children():
+                    Trade_list4.delete(i)
 
                 if checked == False:
-                    staff_list = get_staff_list()
+                    staff_list, staff_list_inv = get_staff_list()
                     checked = True
 
                 server_1, server_2 = get_staff_server(staff_list=staff_list)
@@ -206,12 +252,24 @@ def main_app(frame=None, theme="DarkTheme"):
                 for player in server_1:
                     id_s += 1
                     Item = (player['Rank'], player['Name'], player['SteamID'])
-                    Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+                    Trade_list3.insert("", index=0, iid=id_s, text="", values=Item, tag=player['Rank'].replace(' ', '_'))
 
                 for player in server_2:
                     id_s += 1
                     Item = (player['Rank'], player['Name'], player['SteamID'])
-                    Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+                    Trade_list4.insert("", index=0, iid=id_s, text="", values=Item, tag=player['Rank'].replace(' ', '_'))
+
+                # for player in staff_list.keys():
+                #     player = staff_list[player]
+                #     id_s += 1
+                #     Item = (player['Rank'], player['Name'], player['SteamID'])
+                #     Trade_list4.insert("", index=0, iid=id_s, text="", values=Item, tag=player['Rank'].replace(' ', '_'))
+
+
+                for rank in colors.keys():
+                    color = colors[rank]
+                    Trade_list3.tag_configure(rank.replace(' ', '_'), background=color)
+                    Trade_list4.tag_configure(rank.replace(' ', '_'), background=color)
 
 
                 info = a2s.info(elite_server_1)
@@ -223,8 +281,8 @@ def main_app(frame=None, theme="DarkTheme"):
 
             except:
                 Stats1.set(f"Server 1 Crashed or code is unable to get data")
-                for i in Trade_list.get_children():
-                    Trade_list.delete(i)
+                for i in Trade_list3.get_children():
+                    Trade_list3.delete(i)
 
             time.sleep(30)
 

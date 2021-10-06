@@ -11,7 +11,7 @@ import sqlite3
 import ast
 import sys
 
-from os import walk
+import os
 import importlib
 import os.path as op
 from pypresence import Presence  # The simple rich presence client in pypresence
@@ -39,6 +39,16 @@ for i in range(0, 10):
         print(f"Discord Rich PresenceNot Working on pipe: {i}")
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 def main_app(theme):
     global toggle_state
     Main = Tk()
@@ -50,7 +60,7 @@ def main_app(theme):
     # Main.update()
 
     # Main.attributes('-alpha',0.8)
-    Main.iconbitmap('icon.ico')
+    Main.iconbitmap(resource_path('icon.ico'))
 
     def on_closing():
         Main.destroy()

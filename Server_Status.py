@@ -21,18 +21,33 @@ import requests
 import valve.source as source
 # import valve.source.a2s as a2s
 import a2s
+import Staff_Distribution as staffd
 import valve.source.master_server as master_server
 
 import Elitelupus_ban_search as ebs
 
 import tkinter as tk
 
-global id_s
+global id_s, checked
+checked = False
 id_s = 0
 
 elite_server_1 = ("gmod-drp1-uk.elitelupus.com", 27015)
 elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
 
+colors = {
+    "Management": "#990000",
+    "Staff Manager": "#F04000",
+    "Assistant SM": "#8900F0",
+    "Snr Admin": "#d207d3",
+    "Admin": "#FA1E8A",
+    "Snr Moderator": "#15c000",
+    "Moderator": "#4a86e8",
+    "Snr Operator": "#38761d",
+    "Operator": "#93c47d",
+    "T-Staff": "#b6d7a8",
+    "user": "grey"
+}
 
 players_s1 = {}
 for player in a2s.players(elite_server_1):
@@ -41,6 +56,44 @@ for player in a2s.players(elite_server_1):
 players_s2 = {}
 for player in a2s.players(elite_server_2):
     players_s2.update({player.name: (player.score, int(player.duration))})
+
+
+
+def format_seconds_to_time(seconds):
+    try:
+        seconds_in_day = 60 * 60 * 24
+        seconds_in_hour = 60 * 60
+        seconds_in_minute = 60
+
+        days = int(seconds // seconds_in_day)
+        hours = int((seconds - (days * seconds_in_day)) // seconds_in_hour)
+        minutes =  int((seconds - (days * seconds_in_day) - (hours * seconds_in_hour)) // seconds_in_minute)
+
+        string = ""
+
+        if seconds == 0:
+            string += "0"
+
+        if days != 0:
+            string += f"{days} Days, "
+
+        if hours != 0 and minutes == 0:
+            string += f"{hours} Hours, "
+        elif hours != 0 and minutes != 0:
+            string += f"{hours} Hours, and "
+
+        if minutes != 0:
+            string += f"{minutes} Minutes"
+
+        if minutes == 0 and hours == 0 and minutes == 0:
+            string += f"{int(seconds)} Seconds"
+
+
+        return string
+    except Exception as e:
+        print(e)
+        return "error"
+
 
 
 class ScrollableFrame(ttk.Frame):
@@ -97,7 +150,7 @@ def main_app(frame=None, theme="DarkTheme"):
     label1 = ttk.Label(Page1, textvariable=Stats1)
     label1.grid(row=1,column=0)
 
-    Trade_list = create_tree(Page1, columns=("Name", "Score", "Duration"))
+    Trade_list = create_tree(Page1, columns=("Name", "Score", "Rank", "Duration"))
     Trade_list['height'] = 5
     Trade_list.grid(row=2, column=0, sticky="w")
 
@@ -106,14 +159,20 @@ def main_app(frame=None, theme="DarkTheme"):
     label2 = ttk.Label(Page1, textvariable=Stats2)
     label2.grid(row=3,column=0)
 
-    Trade_list2 = create_tree(Page1, columns=("Name", "Score", "Duration"))
+    Trade_list2 = create_tree(Page1, columns=("Name", "Score", "Rank", "Duration"))
     Trade_list2['height'] = 5
     Trade_list2.grid(row=4, column=0, sticky="w")
 
 
     def update():
-        global id_s
+        global id_s, checked
         while True:
+
+            if checked == False:
+                staff_list, staff_list_inv = staffd.get_staff_list()
+                checked = True
+
+            # staff_list_1, staff_list_2 = staffd.get_staff_server(staff_list=staff_list)
 
             try:
                 info = a2s.info(elite_server_1)
@@ -124,12 +183,13 @@ def main_app(frame=None, theme="DarkTheme"):
 
                 players_s1 = {}
                 for player in a2s.players(elite_server_1):
-                    players_s1.update({player.name: (player.score, int(player.duration))})
+                    players_s1.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
 
                 for player in players_s1.keys():
                     id_s += 1
-                    Item = (player, players_s1[player][0], players_s1[player][1])
-                    Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+                    rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
+                    Item = (player, players_s1[player][0], rank_val, players_s1[player][1])
+                    Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
             except:
                 Stats1.set(f"Server 1 Crashed or code is unable to get data")
                 for i in Trade_list.get_children():
@@ -146,16 +206,22 @@ def main_app(frame=None, theme="DarkTheme"):
 
                 players_s2 = {}
                 for player in a2s.players(elite_server_2):
-                    players_s2.update({player.name: (player.score, int(player.duration))})
+                    players_s2.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
 
                 for player in players_s2.keys():
                     id_s += 1
-                    Item = (player, players_s2[player][0], players_s2[player][1])
-                    Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=id_s)
+                    rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
+                    Item = (player, players_s2[player][0], rank_val, players_s2[player][1])
+                    Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
             except:
                 Stats1.set(f"Server 1 Crashed or code is unable to get data")
                 for i in Trade_list.get_children():
                     Trade_list.delete(i)
+
+            for rank in colors.keys():
+                color = colors[rank]
+                Trade_list.tag_configure(rank.replace(' ', '_'), background=color)
+                Trade_list2.tag_configure(rank.replace(' ', '_'), background=color)
 
 
             time.sleep(30)
