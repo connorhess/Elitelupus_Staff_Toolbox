@@ -65,7 +65,7 @@ def get_staff_list():
     for row in data:
         new_data = row.split(',')
         if "\"Rank\"" not in new_data:
-            steam_id = new_data[3].replace("\"", '')
+            steam_id = new_data[3].replace("\"", '').strip()
             steam_profile = ebs.get_steam_profile(steam_id=steam_id, mod=True)
             # print(steam_profile)
             try:
