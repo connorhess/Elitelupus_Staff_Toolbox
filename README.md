@@ -17,11 +17,11 @@ After the Download/Install is complete, download this repository as a zip or clo
 
 1. Press Green `Code` button.
 
-![Press Code](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/python_step_3.PNG "Code")
+![Press Code](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/github_step_1.PNG "Code")
 
 2. Press `Download ZIP`.
 
-![Download ZIP](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/python_step_3.PNG "Download ZIP")
+![Download ZIP](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/github_step_2.PNG "Download ZIP")
 
 3. Extract the ZIP folder to your `Documents` folder, so that it is in it's own folder.
 
