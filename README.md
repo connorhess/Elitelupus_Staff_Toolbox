@@ -1,6 +1,6 @@
 # Elitelupus_Staff_Toolbox
 
-Install (Python 3.7.3)[https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe]
+Install (https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe)[Python 3.7.3]
 
 1. Run the .exe 
 2. Select the `Add Python 3.7 to PATH` check box.
