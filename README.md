@@ -36,7 +36,8 @@
 
 ![Type cmd](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/File_step_2.PNG "Type cmd")
 
-3.3. Paste the following command and wait for it to finish if you get any errors contact Connor2#8804 on discord. `pip install -r requirements.txt`.
+3.3. Paste the following command and wait for it to finish if you get any errors contact Connor2#8804 on discord. 
+`pip install -r requirements.txt`
 
 ![Paste Command](https://github.com/connorhess/Elitelupus_Staff_Toolbox/blob/main/resources/File_step_3.PNG "Paste Command")
 
