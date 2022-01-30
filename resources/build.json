@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/conno/OneDrive/Documents/GitHub/Duco/Elitelupus_Staff_Toolbox/main.py"
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/main.py"
   },
   {
    "optionDest": "onefile",
@@ -19,11 +19,11 @@
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/conno/OneDrive/Documents/GitHub/Duco/Elitelupus_Staff_Toolbox/icon.ico"
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/resources/icon.ico"
   },
   {
    "optionDest": "name",
-   "value": "Elitelupus Staff Toolbox V1"
+   "value": "Elitelupus Staff Toolbox V3.4"
   },
   {
    "optionDest": "ascii",
@@ -40,6 +40,14 @@
   {
    "optionDest": "noupx",
    "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "embed_manifest",
+   "value": true
   },
   {
    "optionDest": "uac_admin",
@@ -60,6 +68,22 @@
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/resources/icon.ico;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/resources/icon.png;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/resources/icon_512x512.png;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/conno/Documents/GitHub/Elitelupus_Staff_Toolbox/resources;resources/"
   }
  ],
  "nonPyinstallerOptions": {
