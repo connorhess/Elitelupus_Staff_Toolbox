@@ -1,8 +1,8 @@
-pyperclip
-steam
-cefpython3
-tkcalendar
-timeago
-pypresence
-python-a2s
-python-valve
+pyperclip==1.8.2
+steam==1.1.1
+cefpython3==66.1
+tkcalendar==1.6.1
+timeago==1.0.15
+pypresence==4.2.1
+python-a2s==1.3.0
+python-valve==0.2.1
