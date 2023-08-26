@@ -8,6 +8,12 @@ from functools import partial
 import sqlite3
 import ast
 from tkcalendar import Calendar
+import datetime
+
+def get_current_date():
+    now = datetime.datetime.now()
+    current_date = now.strftime("%m/%d/%y")
+    return current_date
 
 # pyperclip.copy('The text to be copied to the clipboard.')
 # spam = pyperclip.paste()
@@ -357,9 +363,9 @@ def Staff_apps_app(frame=None, theme="DarkTheme"):
         full_star = "★"
         text = ""
 
-        text += f"[color=#008e02]  + Rep: {E1.get()}[/color]\n" if len(E1.get()) > 0 else ""
-        text += f"[color=#ffa339]+/- Rep: {E2.get()}[/color]\n" if len(E2.get()) > 0 else ""
-        text += f"[color=#c10300]  - Rep: {E3.get()}[/color]\n" if len(E3.get()) > 0 else ""
+        text += f"+ Rep: {E1.get()}\n" if len(E1.get()) > 0 else ""
+        text += f"+/- Rep: {E2.get()}\n" if len(E2.get()) > 0 else ""
+        text += f"- Rep: {E3.get()}\n" if len(E3.get()) > 0 else ""
         text += f"\n{E4.get(0.0, END)}\n" if len(E4.get(0.0, END)) > 0 else ""
 
         star_text = ""
@@ -373,12 +379,103 @@ def Staff_apps_app(frame=None, theme="DarkTheme"):
             star_text += empty_star
 
         star_text += f"   {scale_var.get()}/5"
-        text += f"[align=center]{star_text}[/align]"
+        text += f"{star_text}"
 
         pyperclip.copy(text)
 
     B2 = ttk.Button(FrameLeft, text="Copy To Clipboard", command=copy_to_clip)
     B2.grid(row=4, column=1, sticky="w")
+
+    if frame == None:
+        Main.mainloop()
+
+
+def Ban_Extention_app(frame=None, theme="DarkTheme"):
+    if frame == None:
+        Main = Tk()
+        Main.title("Staff Application Response Maker")
+    else:
+        Main = frame
+
+    EntryLength=27
+
+    FrameLeft = ttk.Frame(Main)
+    FrameLeft.grid(row=0, column=0)
+
+    FrameRight = ttk.Frame(Main)
+    FrameRight.grid(row=0, column=1)
+
+    L0 = ttk.Label(FrameLeft, text="In-game Name")
+    L0.grid(row=0, column=0, sticky="e")
+    E0 = ttk.Entry(FrameLeft, width=EntryLength)
+    E0.grid(row=0, column=1, sticky="e")
+
+    L1 = ttk.Label(FrameLeft, text="SteamID")
+    L1.grid(row=1, column=0, sticky="e")
+    E1 = ttk.Entry(FrameLeft, width=EntryLength)
+    E1.grid(row=1, column=1, sticky="e")
+
+    L2 = ttk.Label(FrameLeft, text="Server number:")
+    L2.grid(row=2, column=0, sticky="e")
+    E2 = ttk.Entry(FrameLeft, width=EntryLength)
+    E2.grid(row=2, column=1, sticky="e")
+
+    L3 = ttk.Label(FrameLeft, text="Ban Reason")
+    L3.grid(row=3, column=0, sticky="e")
+    E3 = ttk.Entry(FrameLeft, width=EntryLength)
+    E3.grid(row=3, column=1, sticky="e")
+    
+    L4 = ttk.Label(FrameLeft, text="Current Ban Time")
+    L4.grid(row=4, column=0, sticky="e")
+    E4 = ttk.Entry(FrameLeft, width=EntryLength)
+    E4.grid(row=4, column=1, sticky="e")
+    
+    L5 = ttk.Label(FrameLeft, text="Required Ban Time")
+    L5.grid(row=5, column=0, sticky="e")
+    E5 = ttk.Entry(FrameLeft, width=EntryLength)
+    E5.grid(row=5, column=1, sticky="e")
+    
+    L6 = ttk.Label(FrameLeft, text="Reason For Extension")
+    L6.grid(row=6, column=0, sticky="e")
+    E6 = ttk.Entry(FrameLeft, width=EntryLength)
+    E6.grid(row=6, column=1, sticky="e")
+    
+    L7 = ttk.Label(FrameLeft, text="Current Date")
+    L7.grid(row=7, column=0, sticky="e")
+    E7 = ttk.Entry(FrameLeft, width=EntryLength)
+    E7.grid(row=7, column=1, sticky="e")
+    E7.insert(0, str(get_current_date()))
+
+
+
+    def copy_to_clip():
+        empty_star = "☆"
+        full_star = "★"
+        text = ""
+
+        # In-game Name:
+        # SteamID:
+        # Server number: 
+        # Ban Reason:
+        # Current Ban Time:
+        # Required Ban Time:
+        # Reason For Extension:
+        # Current Date:
+        text += f"In-game Name: {E1.get()}\n" if len(E0.get()) > 0 else ""
+        text += f"SteamID: {E1.get()}\n" if len(E1.get()) > 0 else ""
+        text += f"Server number:  {E1.get()}\n" if len(E2.get()) > 0 else ""
+        text += f"Ban Reason: {E1.get()}\n" if len(E3.get()) > 0 else ""
+        text += f"Current Ban Time: {E1.get()}\n" if len(E4.get()) > 0 else ""
+        text += f"Required Ban Time: {E1.get()}\n" if len(E5.get()) > 0 else ""
+        text += f"Reason For Extension: {E1.get()}\n" if len(E6.get()) > 0 else ""
+        text += f"Current Date: {E1.get()}\n" if len(E7.get()) > 0 else ""
+
+        text += f""
+
+        pyperclip.copy(text)
+
+    B2 = ttk.Button(FrameLeft, text="Copy To Clipboard", command=copy_to_clip)
+    B2.grid(row=8, column=1, sticky="w")
 
     if frame == None:
         Main.mainloop()
@@ -399,8 +496,9 @@ def main_app(frame=None, theme="DarkTheme"):
     refund_page_tab = refund_app(refund_tab, theme="DarkTheme")
 
 
-    refund_tab = ttk.Frame(tabControl)
-    tabControl.add(refund_tab, text="Ban Extentions")
+    ban_extention_tab = ttk.Frame(tabControl)
+    tabControl.add(ban_extention_tab, text="Ban Extentions")
+    ban_extention_tab = Ban_Extention_app(ban_extention_tab, theme="DarkTheme")
 
 
     staff_apps_tab = ttk.Frame(tabControl)
@@ -409,7 +507,7 @@ def main_app(frame=None, theme="DarkTheme"):
 
 
     refund_tab = ttk.Frame(tabControl)
-    tabControl.add(refund_tab, text="LOA Requests")
+    tabControl.add(refund_tab, text="Player Reports (soon)")
 
     # cal = Calendar(refund_tab, selectmode = 'day',
     #                year = 2021, month = 5,

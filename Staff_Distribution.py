@@ -31,15 +31,15 @@ global id_s, checked
 id_s = 0
 checked = False
 
-sheet_id = "1YdkBp1l27xLiXAR1cRzlHL-yAjMCxqf3Eb9aq2gZjX8"
+sheet_id = "1SSn3GXggr84dOYfQZzeHiRI0B1vaDkGynUyYHWfXIBo"
 sheet_name = "Roster"
 public_staff_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 
-elite_server_1 = ("gmod-drp1-uk.elitelupus.com", 27015)
-elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
+elite_server_1 = ("194.69.160.33", 27083)
+elite_server_2 = ("193.243.190.12", 27046)
 
 colors = {
-    "Management": "#990000",
+    "Manager": "#990000",
     "Staff Manager": "#F04000",
     "Assistant SM": "#8900F0",
     "Snr Admin": "#d207d3",
@@ -64,17 +64,18 @@ def get_staff_list():
 
     for row in data:
         new_data = row.split(',')
+        # print(new_data)
         if "\"Rank\"" not in new_data:
-            steam_id = new_data[3].replace("\"", '').strip()
+            steam_id = new_data[4].replace("\"", '').strip()
             steam_profile = ebs.get_steam_profile(steam_id=steam_id, mod=True)
             # print(steam_profile)
             try:
                 steam_name = steam_profile['name']
             except:
-                steam_name = new_data[2].replace("\"", '')
+                steam_name = new_data[3].replace("\"", '')
                 # print(new_data[2].replace("\"", ''), steam_id)
-            staff_list.update({new_data[2].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[2].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[3].replace("\"", ''), "Discord ID": new_data[4].replace("\"", '')}})
-            staff_list_inv.update({steam_name: {"Server": None, "Steam_Name": steam_name, "Name": new_data[2].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[3].replace("\"", ''), "Discord ID": new_data[4].replace("\"", '')}})
+            staff_list.update({new_data[3].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[3].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[4].replace("\"", ''), "Discord ID": new_data[5].replace("\"", '')}})
+            staff_list_inv.update({steam_name: {"Server": None, "Steam_Name": steam_name, "Name": new_data[3].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": new_data[4].replace("\"", ''), "Discord ID": new_data[5].replace("\"", '')}})
 
             # time.sleep(1)
 
@@ -280,7 +281,7 @@ def main_app(frame=None, theme="DarkTheme"):
 
 
             except:
-                Stats1.set(f"Server 1 Crashed or code is unable to get data")
+                Stats1.set(f"Server has Crashed or code is unable to get data")
                 for i in Trade_list3.get_children():
                     Trade_list3.delete(i)
 

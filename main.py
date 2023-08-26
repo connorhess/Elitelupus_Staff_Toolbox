@@ -28,10 +28,10 @@ for i in range(0, 10):
                    state="Staff Toolbox, Made By Connor2",
                    large_image="icon_512x512",
                    large_text="Staff Toolbox, Made By Connor2",
-                   buttons=[{"label": "Elitelupus Discord Server",
+                   buttons=[{"label": "Elitelupus GMod Discord",
                              "url": "https://discord.gg/YKC74XH"},
-                            {"label": "Server Rules",
-                             "url": "https://elitelupus.com/forums/forumdisplay.php?fid=7"}]
+                            {"label": "Elitelupus Meta Discord",
+                             "url": "https://discord.gg/3H6x5kSt"}]
                    )
         print("Connected on pipe", i)
         break
@@ -148,12 +148,11 @@ def main_app(theme):
     # tabControl = ttk.Notebook(Main, width=Main.winfo_width())
     tabControl = ttk.Notebook(Main)
 
-    Elitelupus_ban_search_frame = ttk.Frame(tabControl)
-    tabControl.add(Elitelupus_ban_search_frame, text=(
-        "Elitelupus_ban_search").replace('_', ' '))
-    import Elitelupus_ban_search
-    Elitelupus_ban_search.main_app(
-        frame=Elitelupus_ban_search_frame, theme=theme)
+    # Elitelupus_ban_search_frame = ttk.Frame(tabControl)
+    # tabControl.add(Elitelupus_ban_search_frame, text=(
+    #     "Elitelupus_ban_search").replace('_', ' '))
+    # import Elitelupus_ban_search
+    # Elitelupus_ban_search.main_app(frame=Elitelupus_ban_search_frame, theme=theme)
 
 
     Sit_Counter_frame = ttk.Frame(tabControl)
@@ -169,10 +168,10 @@ def main_app(theme):
     Template_Maker.main_app(frame=Template_Maker_frame, theme=theme)
 
 
-    Useful_Links_frame = ttk.Frame(tabControl)
-    tabControl.add(Useful_Links_frame, text=("Useful_Links").replace('_', ' '))
-    import Useful_Links
-    Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
+    # Useful_Links_frame = ttk.Frame(tabControl)
+    # tabControl.add(Useful_Links_frame, text=("Useful_Links").replace('_', ' '))
+    # import Useful_Links
+    # Useful_Links.main_app(frame=Useful_Links_frame, theme=theme)
 
 
     Stats_frame = ttk.Frame(tabControl)

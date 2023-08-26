@@ -277,7 +277,7 @@ def main_app(frame=None, theme="DarkTheme"):
         Searching_Label = ttk.Label(resultPage, text="Searching...")
         Searching_Label.grid(row=0, column=0)
 
-        result = (get_all_bans(SteamID_entry=steam_id))
+        # result = (get_all_bans(SteamID_entry=steam_id))
 
         Searching_Label.grid_forget()
         Searching_Label.destroy()
@@ -330,32 +330,32 @@ def main_app(frame=None, theme="DarkTheme"):
         tabControl = ttk.Notebook(result_frame2)
         exclude_list = ["Location", "Profile"]
 
-        for ban in result:
-            time_of_ban = ban['Time of ban']
-            time_of_ban = datetime.strptime(time_of_ban, '%d-%m-%y %H:%M')
+        # for ban in result:
+        #     time_of_ban = ban['Time of ban']
+        #     time_of_ban = datetime.strptime(time_of_ban, '%d-%m-%y %H:%M')
 
-            result_name = format_elapsed_datetime(time_of_ban)
-            tab.update({result_name: ttk.Frame(tabControl)})
-            tabControl.add(tab[result_name], text=result_name)
+        #     result_name = format_elapsed_datetime(time_of_ban)
+        #     tab.update({result_name: ttk.Frame(tabControl)})
+        #     tabControl.add(tab[result_name], text=result_name)
 
-            for i, item in enumerate(ban.keys()):
-                name = item
-                data = ban[item]
-                if name not in exclude_list:
-                    label_list.update({name: ttk.Label(tab[result_name], text=f"{name}: ")})
-                    label_list[name].grid(row=i, column=0, sticky="e")
+        #     for i, item in enumerate(ban.keys()):
+        #         name = item
+        #         data = ban[item]
+        #         if name not in exclude_list:
+        #             label_list.update({name: ttk.Label(tab[result_name], text=f"{name}: ")})
+        #             label_list[name].grid(row=i, column=0, sticky="e")
 
-                    label_list.update({(name + "_res"): ttk.Label(tab[result_name], text=f"{data}", cursor="hand2")})
-                    label_list[(name + "_res")].grid(row=i, column=1, sticky="w")
-                    label_list[(name + "_res")].bind("<Button-1>", callback_copy)
+        #             label_list.update({(name + "_res"): ttk.Label(tab[result_name], text=f"{data}", cursor="hand2")})
+        #             label_list[(name + "_res")].grid(row=i, column=1, sticky="w")
+        #             label_list[(name + "_res")].bind("<Button-1>", callback_copy)
 
-            label_list.update({"Time Since": ttk.Label(tab[result_name], text="Time Since: ")})
-            label_list["Time Since"].grid(row=20, column=0, sticky="e")
+        #     label_list.update({"Time Since": ttk.Label(tab[result_name], text="Time Since: ")})
+        #     label_list["Time Since"].grid(row=20, column=0, sticky="e")
 
 
-            label_list.update({("Time Since" + "_res"): ttk.Label(tab[result_name], text=f"{result_name}")})
-            label_list[("Time Since" + "_res")].grid(row=20, column=1, sticky="w")
-            # app.main_app(frame=tab[name])
+        #     label_list.update({("Time Since" + "_res"): ttk.Label(tab[result_name], text=f"{result_name}")})
+        #     label_list[("Time Since" + "_res")].grid(row=20, column=1, sticky="w")
+        #     # app.main_app(frame=tab[name])
 
 
         # tabControl.grid(row=0, column=0)

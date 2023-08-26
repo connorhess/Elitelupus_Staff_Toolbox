@@ -32,8 +32,8 @@ global id_s, checked
 checked = False
 id_s = 0
 
-elite_server_1 = ("gmod-drp1-uk.elitelupus.com", 27015)
-elite_server_2 = ("gmod-drp2-usa.elitelupus.com", 27015)
+elite_server_1 = ("194.69.160.33", 27083)
+elite_server_2 = ("193.243.190.12", 27046)
 
 colors = {
     "Management": "#990000",
