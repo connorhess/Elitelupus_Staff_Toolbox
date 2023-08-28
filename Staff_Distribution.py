@@ -131,7 +131,8 @@ def get_users_server(steamid="STEAM_0:1:526199909"):
         else:
             return None
 
-    except:
+    except Exception as e:
+        print(f"Error [Staff_Distribution][1]: {e}")
         return None
 
 class ScrollableFrame(ttk.Frame):
@@ -218,8 +219,9 @@ def main_app(frame=None, theme="DarkTheme"):
     label1 = ttk.Label(Page1, textvariable=Stats1)
     label1.grid(row=1,column=0)
 
+
     Trade_list3 = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
-    Trade_list3['height'] = 5
+    Trade_list3['height'] = 6
     Trade_list3.grid(row=2, column=0, sticky="w")
 
 
@@ -228,7 +230,7 @@ def main_app(frame=None, theme="DarkTheme"):
     label2.grid(row=3,column=0)
 
     Trade_list4 = create_tree(Page1, columns=("Rank", "Name", "SteamID"))
-    Trade_list4['height'] = 5
+    Trade_list4['height'] = 6
     Trade_list4.grid(row=4, column=0, sticky="w")
 
 
@@ -280,7 +282,8 @@ def main_app(frame=None, theme="DarkTheme"):
                 Stats2.set(f"{len(server_2)}/{info2.player_count}/{info2.max_players} {info2.server_name}")
 
 
-            except:
+            except Exception as e:
+                print(f"Error [Staff_Distribution][2]: {e}")
                 Stats1.set(f"Server has Crashed or code is unable to get data")
                 for i in Trade_list3.get_children():
                     Trade_list3.delete(i)

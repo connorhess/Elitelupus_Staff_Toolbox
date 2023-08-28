@@ -51,10 +51,12 @@ colors = {
 
 players_s1 = {}
 for player in a2s.players(elite_server_1):
+    print(player)
     players_s1.update({player.name: (player.score, int(player.duration))})
 
 players_s2 = {}
 for player in a2s.players(elite_server_2):
+    print(player)
     players_s2.update({player.name: (player.score, int(player.duration))})
 
 
@@ -91,7 +93,7 @@ def format_seconds_to_time(seconds):
 
         return string
     except Exception as e:
-        print(e)
+        print(f"Error [Server_Stats][1]: {e}")
         return "error"
 
 
@@ -151,7 +153,7 @@ def main_app(frame=None, theme="DarkTheme"):
     label1.grid(row=1,column=0)
 
     Trade_list = create_tree(Page1, columns=("Name", "Score", "Rank", "Duration"))
-    Trade_list['height'] = 5
+    Trade_list['height'] = 6
     Trade_list.grid(row=2, column=0, sticky="w")
 
 
@@ -160,7 +162,7 @@ def main_app(frame=None, theme="DarkTheme"):
     label2.grid(row=3,column=0)
 
     Trade_list2 = create_tree(Page1, columns=("Name", "Score", "Rank", "Duration"))
-    Trade_list2['height'] = 5
+    Trade_list2['height'] = 6
     Trade_list2.grid(row=4, column=0, sticky="w")
 
 
@@ -171,6 +173,7 @@ def main_app(frame=None, theme="DarkTheme"):
             if checked == False:
                 staff_list, staff_list_inv = staffd.get_staff_list()
                 checked = True
+
 
             # staff_list_1, staff_list_2 = staffd.get_staff_server(staff_list=staff_list)
 
@@ -183,14 +186,23 @@ def main_app(frame=None, theme="DarkTheme"):
 
                 players_s1 = {}
                 for player in a2s.players(elite_server_1):
-                    players_s1.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
+                    try:
+                        players_s1.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
+                    except Exception as e:
+                        print(f"Error [Server_Stats][4]: {e}")
+                        players_s1.update({"[Name Error]": (player.score, format_seconds_to_time(int(player.duration)))})
+
 
                 for player in players_s1.keys():
-                    id_s += 1
-                    rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
-                    Item = (player, players_s1[player][0], rank_val, players_s1[player][1])
-                    Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
-            except:
+                    try:
+                        id_s += 1
+                        rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
+                        Item = (player, players_s1[player][0], rank_val, players_s1[player][1])
+                        Trade_list.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
+                    except Exception as e:
+                        print(f"Error [Server_Stats][4]: {e}")
+            except Exception as e:
+                print(f"Error [Server_Stats][2]: {e}")
                 Stats1.set(f"Server 1 Crashed or code is unable to get data")
                 for i in Trade_list.get_children():
                     Trade_list.delete(i)
@@ -206,14 +218,22 @@ def main_app(frame=None, theme="DarkTheme"):
 
                 players_s2 = {}
                 for player in a2s.players(elite_server_2):
-                    players_s2.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
+                    try:
+                        players_s2.update({player.name: (player.score, format_seconds_to_time(int(player.duration)))})
+                    except Exception as e:
+                        print(f"Error [Server_Stats][4]: {e}")
+                        players_s2.update({"[Name Error]": (player.score, format_seconds_to_time(int(player.duration)))})
 
                 for player in players_s2.keys():
-                    id_s += 1
-                    rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
-                    Item = (player, players_s2[player][0], rank_val, players_s2[player][1])
-                    Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
-            except:
+                    try:
+                        id_s += 1
+                        rank_val = staff_list_inv[player]['Rank'] if player in staff_list_inv.keys() else "user"
+                        Item = (player, players_s2[player][0], rank_val, players_s2[player][1])
+                        Trade_list2.insert("", index=0, iid=id_s, text="", values=Item, tag=rank_val.replace(' ', '_'))
+                    except Exception as e:
+                        print(f"Error [Server_Stats][4]: {e}")
+            except Exception as e:
+                print(f"Error [Server_Stats][3]: {e}")
                 Stats1.set(f"Server 1 Crashed or code is unable to get data")
                 for i in Trade_list.get_children():
                     Trade_list.delete(i)
@@ -226,6 +246,17 @@ def main_app(frame=None, theme="DarkTheme"):
 
             time.sleep(30)
 
+
+    def OnDoubleClickServer1(event):
+        item = tree.selection()[0]
+        print("you clicked on", tree.item(item,"text"))
+
+    def OnDoubleClickServer2(event):
+        item = tree.selection()[0]
+        print("you clicked on", tree.item(item,"text"))
+
+    Trade_list.bind("<Double-1>", OnDoubleClickServer1)
+    Trade_list2.bind("<Double-1>", OnDoubleClickServer2)
 
     thread = threading.Thread(target=update)
     thread.setDaemon(True)
