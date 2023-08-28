@@ -1,0 +1,278 @@
+Job-Specific Rules
+Law Enforcement
+J1.1 Don’t use lethal force unless necessary.
+J1.2 You’re only allowed to raid a base if you suspect illegal activity.
+J1.3 Do not arrest other Law Enforcement.
+J1.4 (a) As the President you may not make laws that target specific groups, E.g. 'Above Tier 1 is AOS' or 'All thieves are AOS'
+J1.4 (b.) As the President you may not make laws that ruin the player experience, E.g. 'Jaywalking is AOS'
+J1.5 Law enforcement are not allowed to be corrupt.
+J1.6 Printers are illegal by default unless stated otherwise.
+J1.7 Law "Guns out is AOS" Must include with no gun license.
+J1.8 As President you are not allowed to put KOS with laws. ( E.g. KOS if guns out in public)
+J1.9 You cannot defend or be defended by your clan but you may defend other law enforcement.
+J1.10 You may not enter a base without a warrant.
+
+Hitman
+J2.1 You’re not allowed to ask someone if they can put a hit on a specific player.
+J2.2 You’re not allowed to work/base with anyone.
+J2.3 You're not allowed to raid, unless you have a hit on the player then you may break in solely to achieve the hit (No stealing etc).
+J2.4 You're not allowed to kill your hit if the person is building.
+J2.5 You're not allowed to assist a hitman and you can't clan defend them and they can't clan defend others.
+
+Guards
+J3.1 You're not able to allow a criminal into the base.
+
+Gun Dealers
+J4.1 You must have a gun store open.
+J4.2 Self-supplying is not allowed. (spawning yourself multiple shipments and changing job/refusing to sell to others)
+J4.3 Gun shelves must be fully visible. (I.e. You cannot cover prices/guns.)
+
+DJ
+J5.1 As a DJ you are only allowed to play music in your own building/house/DJ Booth.
+J5.2 You may only make one DJ booth as a DJ, do not make it in the middle of a street or interfere with someone's house/base.
+J5.3 Do not play any discriminatory music (refer to 1.4) and not inappropiate stuff (E.g.: NSFW noises etc.)
+
+Miners
+J6.1 Auto Clickers are only permitted to be used for mining.
+J6.2 AFK mining is allowed. 
+J6.3 You must be either a miner or a citizen to mine.
+Luke Skywalker/Darth Vader
+J7.1 Both jobs can kill each other on sight.(Watch out for others) 
+
+Harry Potter/Voldemort
+J8.1 Both jobs can kill each other on sight.(Watch out for others)
+
+Bank Rules
+J9.1 Police cannot raid the bank or steal money bags, this is FailRP.
+J9.2 Only the Bank Manager and hired Security Guards are allowed to build in the bank.
+J9.3 The Bank Manager is allowed to store printers for a certain price.
+J9.4 Printers in the bank are not illegal.
+J9.5 If you're in possession of stolen money bags, police can KOS/AOS you.
+J9.6 You are KOS/AOS when interacting with corrupt bankers by Law Enforcement and jobs that are allowed to steal.
+J9.7 You are not allowed to base on/near the corrupt banker (within 10 meters).
+J9.8 Any non-police found in the bank vault are KOS/AOS by government officials (Bank Manager can decide whether to make past lobby KOS/AOS). This also applies to the entire police department, excluding the front lobby.
+
+Job Rules
+J10.1 Every Job can have Blade Printers.
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Citizen
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes (But with no raidables.)
+Can have printers: No
+
+Miner/Retro Miner
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: No
+Can have printers: No
+
+City Worker
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: No
+Can have printers: No
+
+Pharmacist
+Can raid: Yes
+Can steal: No
+Can mug: No
+Can kidnap: Yes
+Can base: Yes
+Can have printers: No
+
+Alchemist
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes
+Can have printers: No
+
+DJ
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes (Only a DJ stand/house.)
+Can have printers: No
+
+Casino Owner
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes (Only in the casino.)
+Can have printers: No
+
+Hobo King
+Can raid: No
+Can steal: Yes
+Can mug: Yes
+Can kidnap: No
+Can base: Yes (Only a Hobo shack which cannot have any raidables or be on the street)
+Can have printers: No
+
+Security Guard
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes (If hired to protect a base)
+Can have printers: No (Unless hired to protect the bank and the printer is placed in the bank.)
+
+Medic
+Can raid: Yes (Hired and with 3 or more people)
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes (Hired and with 3 or more people)
+Can have printers: No 
+
+Gun Dealer (And all variants.)
+Can raid: No
+Can steal: No
+Can mug: No
+Can kidnap: No
+Can base: Yes 
+Can have printers: No (Only Bitminers) 
+
+
+
+Law Enforcement
+
+President Donald J Trump 
+ Can raid: No
+ Can steal: No
+ Can mug: No
+ Can kidnap: No
+ Can base: Yes (Only in the PD.)
+ Can have printers: No
+
+All Police, Swat And Secret Service 
+ Can raid: Yes (With a warrant.)
+ Can steal: No
+ Can mug: No
+ Can kidnap: No
+ Can base: Yes (Only with the president in PD.)
+ Can have printers: No
+
+Luke Skywalker 
+ Can raid: Yes (With a warrant and with SWAT.)
+ Can steal: No
+ Can mug: No
+ Can kidnap: No
+ Can base: Yes (Only with the president in PD.)
+ Can have printers: No
+
+Bank Manager
+ Can raid: No
+ Can steal: No
+ Can mug: No
+ Can kidnap: No
+ Can base: Yes (Only in the bank.)
+ Can have printers: Yes (Only in the bank.)
+
+
+
+
+Criminals 
+
+Thief  (all thief variants)
+ Can raid: Yes
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: No (Anime Thief Ultimate and Platinum can)
+ Can base: Yes
+ Can have printers: Yes
+
+Weed Grower (all variants)
+ Can raid: No(Op can)
+ Can steal: No(Op can)
+ Can mug: No(Op can)
+ Can kidnap: No
+ Can base: Yes (Op can)
+ Can have printers: Yes
+
+Drug Cook (all Drug Cook variants)
+ Can raid: No (Pro and Ultimate can)
+ Can steal: No (Ultimate can)
+ Can mug: No (Ultimate can)
+ Can kidnap: No (Ultimate can)
+ Can base: Yes (Drug Lab must be in base)
+ Can have printers: Yes
+
+Wizard 
+ Can raid: Yes
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: Yes
+ Can base: Yes
+ Can have printers: Yes
+
+Harry Potter and Voldemort 
+ Can raid: Yes
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: No
+ Can base: Yes but not with each other
+ Can have printers: Yes
+
+Kidnapper 
+ Can raid: No
+ Can steal: No
+ Can mug: Yes
+ Can kidnap: Yes
+ Can base: Yes
+ Can have printers: Yes 
+ 
+Hitman (all variants) 
+ Can raid: Yes (Only to achieve a hit.)
+ Can steal: No
+ Can mug: No
+ Can kidnap: No
+ Can base: No 
+ Can have printers: No
+
+Darth Vader 
+ Can raid: Yes
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: No
+ Can base: Yes
+ Can have printers: Yes
+Gangs
+
+Bloodz/Cripz Leader 
+ Can raid: Yes 
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: Yes
+ Can base: Yes but not with each other
+ Can have printers: Yes
+
+Bloodz/Cripz Lieutenant 
+ Can raid: Yes (Only with your gang leader.)
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: No
+ Can base: Yes (Only with your gang leader.)
+ Can have printers: Yes
+
+Bloodz/Cripz Member 
+ Can raid: Yes (Only with your gang leader/Lieutenant.)
+ Can steal: Yes
+ Can mug: Yes
+ Can kidnap: No
+ Can base: Yes (Only with your gang leader.)
+ Can have printers: Yes

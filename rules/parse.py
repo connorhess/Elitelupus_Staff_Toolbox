@@ -53,4 +53,4 @@ for line in lines:
 
 # pprint.pprint(RULES)
 # print(RULES)
-print(json.dumps(RULES))
+# print(json.dumps(RULES))
