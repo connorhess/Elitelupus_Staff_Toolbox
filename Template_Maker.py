@@ -461,14 +461,14 @@ def Ban_Extention_app(frame=None, theme="DarkTheme"):
         # Required Ban Time:
         # Reason For Extension:
         # Current Date:
-        text += f"In-game Name: {E1.get()}\n" if len(E0.get()) > 0 else ""
+        text += f"In-game Name: {E0.get()}\n" if len(E0.get()) > 0 else ""
         text += f"SteamID: {E1.get()}\n" if len(E1.get()) > 0 else ""
-        text += f"Server number:  {E1.get()}\n" if len(E2.get()) > 0 else ""
-        text += f"Ban Reason: {E1.get()}\n" if len(E3.get()) > 0 else ""
-        text += f"Current Ban Time: {E1.get()}\n" if len(E4.get()) > 0 else ""
-        text += f"Required Ban Time: {E1.get()}\n" if len(E5.get()) > 0 else ""
-        text += f"Reason For Extension: {E1.get()}\n" if len(E6.get()) > 0 else ""
-        text += f"Current Date: {E1.get()}\n" if len(E7.get()) > 0 else ""
+        text += f"Server number:  {E2.get()}\n" if len(E2.get()) > 0 else ""
+        text += f"Ban Reason: {E3.get()}\n" if len(E3.get()) > 0 else ""
+        text += f"Current Ban Time: {E4.get()}\n" if len(E4.get()) > 0 else ""
+        text += f"Required Ban Time: {E5.get()}\n" if len(E5.get()) > 0 else ""
+        text += f"Reason For Extension: {E6.get()}\n" if len(E6.get()) > 0 else ""
+        text += f"Current Date: {E7.get()}\n" if len(E7.get()) > 0 else ""
 
         text += f""
 
