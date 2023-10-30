@@ -55,6 +55,9 @@ colors = {
 # df = pandas.read_csv(public_staff_url)
 # print(df)
 
+def get_steam_name(steam_id):
+    
+
 def get_staff_list():
     staff_list = {}
     staff_list_inv = {}
@@ -69,7 +72,7 @@ def get_staff_list():
             steam_id = new_data[5].replace("\"", '').strip()
 
             steam_id = SteamID(steam_id)
-            # print(steam_id)
+            print(steam_id)
 
             steam_name = new_data[4].replace("\"", '')
                 # print(new_data[2].replace("\"", ''), steam_id)
@@ -84,11 +87,11 @@ def get_staff_list():
 def get_staff_server(staff_list):
     players_s1 = {}
     for player in a2s.players(elite_server_1):
-        players_s1.update({player.name: (player.score, int(player.duration))})
+        players_s1.update({player.name.lower(): (player.score, int(player.duration))})
 
     players_s2 = {}
     for player in a2s.players(elite_server_2):
-        players_s2.update({player.name: (player.score, int(player.duration))})
+        players_s2.update({player.name.lower(): (player.score, int(player.duration))})
 
     server_1 = []
     server_2 = []
@@ -97,12 +100,12 @@ def get_staff_server(staff_list):
         user = staff_list[user]
         if user['Steam_Name'] != None:
             # print(user['Name'], ":", user['Steam_Name'])
-            if players_s1.get(user['Steam_Name']) != None:
+            if players_s1.get(user['Steam_Name'].lower()) != None:
                 # print(user['Name'], "is on server 1")
                 staff_list[user['Name']].update({"Server": 1})
                 server_1.append(user)
 
-            elif players_s2.get(user['Steam_Name']) != None:
+            elif players_s2.get(user['Steam_Name'].lower()) != None:
                 # print(user['Name'], "is on server 2")
                 staff_list[user['Name']].update({"Server": 2})
                 server_2.append(user)
@@ -110,6 +113,7 @@ def get_staff_server(staff_list):
     return (server_1, server_2)
 
 def get_users_server(steamid="STEAM_0:1:526199909"):
+    print(steamid)
     steam_profile = ebs.get_steam_profile(steam_id=steamid, mod=True)
     try:
         steam_name = steam_profile['name']
