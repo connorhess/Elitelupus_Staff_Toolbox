@@ -5,7 +5,7 @@ import re
 import requests
 from steam.enums.base import SteamIntEnum
 from steam.enums import EType, EUniverse, EInstanceFlag
-from steam.core.crypto import md5_hash
+import hashlib
 from steam.utils.web import make_requests_session
 
 if sys.version_info < (3,):
@@ -218,7 +218,8 @@ class SteamID(intBase):
             return
 
         h = b'CSGO' + struct.pack('>L', self.account_id)
-        h, = struct.unpack('<L', md5_hash(h[::-1])[:4])
+        h = hashlib.md5(h[::-1]).digest()[:4]
+        h, = struct.unpack('<L', h)
         steamid = self.as_64
         result = 0
 
