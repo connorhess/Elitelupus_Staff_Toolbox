@@ -64,18 +64,18 @@ def get_staff_list():
 
     for row in data:
         new_data = row.split(',')
-        print(new_data)
+        # print(new_data)
         if "\"Rank\"" not in new_data:
-            steam_id = new_data[4].replace("\"", '').strip()
+            steam_id = new_data[5].replace("\"", '').strip()
 
             steam_id = SteamID(steam_id)
-            print(steam_id)
+            # print(steam_id)
 
-            steam_name = new_data[3].replace("\"", '')
+            steam_name = new_data[4].replace("\"", '')
                 # print(new_data[2].replace("\"", ''), steam_id)
-            print(steam_name)
-            staff_list.update({new_data[3].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[3].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": steam_id, "Discord ID": new_data[5].replace("\"", '')}})
-            staff_list_inv.update({steam_name: {"Server": None, "Steam_Name": steam_name, "Name": new_data[3].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": steam_id, "Discord ID": new_data[5].replace("\"", '')}})
+            # print(steam_name)
+            staff_list.update({new_data[4].replace("\"", ''): {"Server": None, "Steam_Name": steam_name, "Name": new_data[4].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": steam_id, "Discord ID": new_data[6].replace("\"", '')}})
+            staff_list_inv.update({steam_name: {"Server": None, "Steam_Name": steam_name, "Name": new_data[4].replace("\"", ''), "Rank": new_data[1].replace("\"", '').strip(), "SteamID": steam_id, "Discord ID": new_data[6].replace("\"", '')}})
 
             # time.sleep(1)
 
