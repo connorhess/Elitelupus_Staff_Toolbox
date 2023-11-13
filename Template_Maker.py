@@ -447,7 +447,6 @@ def Ban_Extention_app(frame=None, theme="DarkTheme"):
     E7.insert(0, str(get_current_date()))
 
 
-
     def copy_to_clip():
         empty_star = "☆"
         full_star = "★"
@@ -481,6 +480,91 @@ def Ban_Extention_app(frame=None, theme="DarkTheme"):
         Main.mainloop()
 
 
+def Player_Report_app(frame=None, theme="DarkTheme"):
+    if frame == None:
+        Main = Tk()
+        Main.title("Player Report Response Maker")
+    else:
+        Main = frame
+
+    EntryLength=27
+
+    FrameLeft = ttk.Frame(Main)
+    FrameLeft.grid(row=0, column=0)
+
+    FrameRight = ttk.Frame(Main)
+    FrameRight.grid(row=0, column=1)
+
+    L0 = ttk.Label(FrameLeft, text="Transcript Link")
+    L0.grid(row=0, column=0, sticky="e")
+    E0 = ttk.Entry(FrameLeft, width=EntryLength)
+    E0.grid(row=0, column=1, sticky="e")
+
+    L1 = ttk.Label(FrameLeft, text="SteamID")
+    L1.grid(row=1, column=0, sticky="e")
+    E1 = ttk.Entry(FrameLeft, width=EntryLength)
+    E1.grid(row=1, column=1, sticky="e")
+
+    L2 = ttk.Label(FrameLeft, text="Reason")
+    L2.grid(row=2, column=0, sticky="e")
+    E2 = ttk.Entry(FrameLeft, width=EntryLength)
+    E2.grid(row=2, column=1, sticky="e")
+
+    L3 = ttk.Label(FrameLeft, text="Accepted/Denied")
+    L3.grid(row=3, column=0, sticky="e")
+    V3 = StringVar()
+    R3_1 = ttk.Radiobutton(FrameLeft, text="Accepted", variable=V3, value="Accepted", padding=(4,0,4,0))
+    R3_1.grid(row=3, column=1, sticky="w")
+    R3_2 = ttk.Radiobutton(FrameLeft, text="Denied", variable=V3, value="Denied", padding=(4,0,4,0))
+    R3_2.grid(row=3, column=1, sticky="e")
+
+    L4 = ttk.Label(FrameLeft, text="Action")
+    L4.grid(row=4, column=0, sticky="e")
+    V4 = StringVar()
+    R4_1 = ttk.Radiobutton(FrameLeft, text="Ban", variable=V4, value="Banned", padding=(4,0,4,0))
+    R4_1.grid(row=4, column=1, sticky="w")
+    R4_2 = ttk.Radiobutton(FrameLeft, text="Warn", variable=V4, value="Warned", padding=(4,0,4,0))
+    R4_2.grid(row=4, column=1, sticky="e")
+    R4_3 = ttk.Radiobutton(FrameLeft, text="None", variable=V4, value="None", padding=(4,0,4,0))
+    R4_3.grid(row=4, column=1, sticky="n")
+
+    # L5 = ttk.Label(FrameLeft, text="Ban/Warn Reason")
+    # L5.grid(row=5, column=0, sticky="e")
+    # E5 = ttk.Entry(FrameLeft, width=EntryLength)
+    # E5.grid(row=5, column=1, sticky="e")
+
+    def copy_to_clip():
+        empty_star = "☆"
+        full_star = "★"
+        text = ""
+
+        # Case:
+        # Accepted/Denied:
+        # Reason:
+        # SteamID 64:
+        # Warned: Yes/No
+        # Banned: Yes/No
+
+        text += f"Case: {E0.get()}\n" if len(E0.get()) > 0 else ""
+        text += f"{V3.get()}\n" if len(V3.get()) > 0 else ""
+        text += f"Reason: {E2.get()}\n" if len(E2.get()) > 0 else ""
+        text += f"SteamID 64: {E1.get()}\n" if len(E1.get()) > 0 else ""
+        
+        banned_text = "Yes" if V4.get() == "Banned" else "No"
+        warnned_text = "Yes" if V4.get() == "Warned" else "No"
+        text += f"Warned: {warnned_text}\n"
+        text += f"Banned: {banned_text}\n"
+
+        pyperclip.copy(text)
+
+
+    B2 = ttk.Button(FrameLeft, text="Copy To Clipboard", command=copy_to_clip)
+    B2.grid(row=6, column=1, sticky="w")
+
+    if frame == None:
+        Main.mainloop()
+
+
 
 def main_app(frame=None, theme="DarkTheme"):
     if frame == None:
@@ -491,9 +575,9 @@ def main_app(frame=None, theme="DarkTheme"):
 
     tabControl = ttk.Notebook(Main)
 
-    refund_tab = ttk.Frame(tabControl)
-    tabControl.add(refund_tab, text="Refunds")
-    refund_page_tab = refund_app(refund_tab, theme="DarkTheme")
+    # refund_tab = ttk.Frame(tabControl)
+    # tabControl.add(refund_tab, text="Refunds")
+    # refund_page_tab = refund_app(refund_tab, theme="DarkTheme")
 
 
     ban_extention_tab = ttk.Frame(tabControl)
@@ -506,8 +590,9 @@ def main_app(frame=None, theme="DarkTheme"):
     staff_apps_page_tab = Staff_apps_app(staff_apps_tab, theme="DarkTheme")
 
 
-    refund_tab = ttk.Frame(tabControl)
-    tabControl.add(refund_tab, text="Player Reports (soon)")
+    player_reports_tab = ttk.Frame(tabControl)
+    tabControl.add(player_reports_tab, text="Player Reports")
+    Player_Report_app_page = Player_Report_app(player_reports_tab, theme="DarkTheme")
 
     # cal = Calendar(refund_tab, selectmode = 'day',
     #                year = 2021, month = 5,
